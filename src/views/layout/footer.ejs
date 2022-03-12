@@ -8,19 +8,25 @@
                 <p>Phân phối bởi <a href="" target="_blank">KTCN - 403A</a></p> 
             </div>
 
-            <button class="open-button" onclick="openForm()">Chat</button>
+            <button class="open-button" onclick="openForm()">
+                <img src="./images/chat.png" alt="" width="40px" height="40px">
+            </button>
 
             <div class="chat-popup" id="myForm">
             <div class="form-container">
-                <h1>Chat</h1>
-
-                <label for="msg"><b>Message</b></label>
+                <div class="messager-header">
+                    <p>Chat Bot</p>
+                    <button onclick="closeForm()">X</button>
+                </div>
                 <div id="messager" class="messager-content">
                 </div>
-                <textarea placeholder="Type message.." name="msg" id="msg" required></textarea>
-
-                <button type="submit" class="btn" onclick="send()">Send</button>
-                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                <div class="send">
+                    <textarea placeholder="Type message.." name="msg" id="msg" required></textarea>
+    
+                    <button type="submit" class="btn" onclick="send()">
+                        <img src="./images/send.png" alt="" width="40px" height="40px">
+                    </button>
+                </div>
             </div>
             </div>
             <script>
