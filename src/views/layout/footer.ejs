@@ -1,0 +1,52 @@
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer text-dark">
+            <div class="copyright">
+                <p>Bản quyền © Được thiết kế và &amp; Phát triển bởi <a href="#" target="_blank">KTCN - 403A</a> 2021</p>
+                <p>Phân phối bởi <a href="" target="_blank">KTCN - 403A</a></p> 
+            </div>
+
+            <button class="open-button" onclick="openForm()">Chat</button>
+
+            <div class="chat-popup" id="myForm">
+            <div class="form-container">
+                <h1>Chat</h1>
+
+                <label for="msg"><b>Message</b></label>
+                <div id="messager" class="messager-content">
+                </div>
+                <textarea placeholder="Type message.." name="msg" id="msg" required></textarea>
+
+                <button type="submit" class="btn" onclick="send()">Send</button>
+                <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+            </div>
+            </div>
+            <script>
+                async function send() {
+                    myBody = document.getElementById("msg").value;
+                    document.getElementById("messager").innerHTML += `<p>${myBody}</p>`;
+                    document.getElementById("msg").value = "";
+
+                    const response = await fetch(`/chatbot?messager=${myBody}`, {
+                        method: 'get',
+                        headers: {
+                        'Content-Type': 'application/json'
+                        }
+                    });
+                    const myJson = await response.json(); //extract JSON from the http response
+                    console.log(myJson)
+                }
+                function openForm() {
+                document.getElementById("myForm").style.display = "block";
+                }
+
+                function closeForm() {
+                document.getElementById("myForm").style.display = "none";
+                }
+</script>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->

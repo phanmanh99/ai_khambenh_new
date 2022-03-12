@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Thêm ảnh </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link href="/css/style.css" rel="stylesheet">
+    
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <%- include('layout/header'); %>
+        <!--**********************************
+            Header end
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+
+        <!--<%- include('layout/sidebar'); %>-->
+        
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Thêm thông tin</h4>
+                            <p class="mb-1">Thêm thông tin</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Người dùng</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Thêm thông tin</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="form-group text-dark">
+                    <label><h2>VUI LÒNG ĐIỀN ĐẦY ĐỦ THÔNG TIN ĐỂ SỬ DỤNG CHỨC NĂNG CỦA HỆ THỐNG!</h2></label>
+                </div>
+                <form class="form-valide text-dark" action="" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label><strong>Họ và tên</strong></label>
+                        <input type="text" class="form-control" name="hoten" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Địa chỉ</strong></label>
+                        <input type="text" class="form-control" name="diachi" required>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Số CMND</strong></label>
+                        <input type="text" class="form-control" name="cmnd" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Số điện thoại</strong></label>
+                        <input type="text" class="form-control" name="sdt" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Email</strong></label>
+                        <input type="email" class="form-control" name="email" placeholder="hello@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Số BHYT</strong></label>
+                        <input type="text" class="form-control" name="bhyt" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label><strong>Tiền sử bệnh lý</strong></label>
+                        <input type="text" class="form-control" name="tsbl" placeholder="" required>
+                    </div>
+                    <div class="text-center mt-4">
+                        <input type="submit" class="btn btn-primary btn-block" value="Gửi">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <%- include('layout/footer'); %>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+
+    <!-- Required vendors -->
+    <script src="/vendor/global/global.min.js"></script>
+    <script src="/js/quixnav-init.js"></script>
+    <script src="/js/custom.min.js"></script>
+    
+
+
+
+    <!-- Jquery Validation -->
+    <script src="/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Form validate init -->
+    <script src="/js/plugins-init/jquery.validate-init.js"></script>
+</body>
+
+</html>
