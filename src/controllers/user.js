@@ -19,6 +19,13 @@ const Messengers = db.messenger;
 // ===============================================
 // ================= USER ========================
 // ===============================================
+const getTimeline = async (req, res) => {
+    const chitietkham = await ChiTietKham.findAll();
+    return res.render(path.join(`${__dirname}/../views/timeline`),{
+        datas: chitietkham
+    });
+};
+
 const homeUser = async (req, res) => {
     const messenger = await Messengers.findAll({
         where: {
@@ -77,7 +84,12 @@ const postLogin = async (req, res) => {
                 req.session.User.infor = 1;
                 req.session.User.id = infor.idbenhnhan;
             }
+            if (users[0].role == 2){
                 return res.redirect("/");
+            }
+            else{
+                return res.redirect("/doctor");
+            }    
         }
     }
     return res.render(path.join(`${__dirname}/../views/login`), {
@@ -186,6 +198,7 @@ const Messenger = async (req, res) => {
 };
 module.exports = {
   // user
+  getTimeline: getTimeline,
   getHomeUser: homeUser,
   getForm: form,
   postForm: postForm,

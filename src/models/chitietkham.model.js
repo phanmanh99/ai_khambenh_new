@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       nameimage: {
         type: DataTypes.STRING,
       },
-      infer_doctor: {
-        type: DataTypes.INTEGER,
+      comment_doctor: {
+        type: DataTypes.STRING,
       },
       mucdo: {
         type: DataTypes.STRING,

@@ -1,6 +1,6 @@
 module.exports = {
-  cmdPython: "venv\\Scripts\\python.exe",
+  cmdPython: "python",
   aiChuanDoan: "ai\\main.py",
-  aiChatBot: "ai\\chatbot.py",
+  aiChatBot: "ai\\chatgui.py",
   hostAPI: "http://localhost:8080",
 };

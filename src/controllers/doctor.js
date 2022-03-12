@@ -88,14 +88,18 @@ const doctorCheck = async (req, res) => {
     return res.redirect(`back`);
 };
 const doctorTableUser = async (req, res) => {
-    const data = await Users.findAll();
+    const data = await Account.findAll({
+        where: {
+            role: 2,
+        },
+    });
     return res.render(path.join(`${__dirname}/../views/doctor/tableuser`), {
         datas: data,
     });
 };
 const doctorUser = async (req, res) => {
     phone = req.params.phone;
-    const data = await UserImage.findAll({
+    const data = await Image.findAll({
         where: {
             phone: phone,
         },

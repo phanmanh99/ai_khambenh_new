@@ -15,6 +15,7 @@ let routes = (app) => {
   // ===============================================
   // ================= USER ========================
   // ===============================================
+  router.get("/timeline",userController.getTimeline)
   router.get("/", isAdmin.isUser, userController.getHomeUser);
   router.get("/login", userController.getLogin);
   router.post("/login", upload.single("file"), userController.postLogin);
