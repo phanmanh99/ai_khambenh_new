@@ -26,9 +26,20 @@ const doctorForm = (req, res) => {
     return res.render(path.join(`${__dirname}/../views/doctor/form`));
 };
 const doctorTable = async (req, res) => {
-    const data = await Image.findAll();
+    const data = await InforUser.findAll({
+        where: {
+            username: null,
+            createby: req.session.User.idbacsi
+        },
+    });
+    const image = await Image.findAll({
+        where: {
+            idbacsi: req.session.User.idbacsi,
+            inforimage: 1
+        },
+    });
     return res.render(path.join(`${__dirname}/../views/doctor/table`), {
-        datas: data,
+        datas: data,images: image
     });
 };
 const doctorEdit = async (req, res) => {

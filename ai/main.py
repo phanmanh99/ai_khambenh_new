@@ -56,7 +56,7 @@ class KerasRankDetector(RankDetector):
 
 def predictImg(image_path):
     height, width = 224, 224
-    rank_detector = KerasRankDetector("modelvgg16.h5")
+    rank_detector = KerasRankDetector("./ai/modelvgg16.h5")
     result = rank_detector.predict_file(image_path, target_size=(height, width))
     # Biến idx là biến cho kết quả bằng 0 hoặc 1. Nếu = 0 là Bình thường, = 1 là bị viêm phổi
     idx = np.argmax(result[0])

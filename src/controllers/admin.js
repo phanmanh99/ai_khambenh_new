@@ -7,6 +7,7 @@ const config = require("../config/config");
 const axios = require("axios");
 const console = require("console");
 const { count } = require("console");
+const { account } = require("../models");
 
 const Account = db.account
 const Image = db.image;
@@ -59,19 +60,29 @@ const formUser = (req, res) => {
     return res.render(path.join(`${__dirname}/../views/admin/formUser`));
 };
 const postFormUser = async (req, res) => {
-    await Users.create({
-        phone: req.body["val-phone"],
-        password: req.body["val-password"],
-        email: req.body["val-email"],
-        name: req.body["val-username"],
+    await Account.create({
+        uername: req.body.username,
+        password: req.body.password,
+        role: 2
+    });
+    await InforUser.create({
+        uername: req.body.uername,
+        hoten: req.body["val-hoten"],
+        diachi: req.body["val-diachi"],
         cmnd: req.body["val-cmnd"],
+        sdt: req.body["val-sdt"],
+        email: req.body["val-email"],
+        sobhyt: req.body["val-bhyt"],
+        tiensubenh: req.body["val-tsbl"],
     });
     return res.render(path.join(`${__dirname}/../views/admin/formUser`), {
         err_msg: "Đã tạo tài khoản",
     });
 };
 const tableUser = async (req, res) => {
-    const data = await Users.findAll();
+    const data = await Account.findAll({
+        where: { role: 2 },
+    });
     return res.render(path.join(`${__dirname}/../views/admin/tableUser`), {
         datas: data,
     });
@@ -86,16 +97,23 @@ const formDoctor = (req, res) => {
     return res.render(path.join(`${__dirname}/../views/admin/formDoctor`));
 };
 const postFormDoctor = async (req, res) => {
-    await Admins.create({
-        username: req.body["val-username"],
-        password: req.body["val-password"],
-        email: req.body["val-email"],
-        role: 2,
+    await Account.create({
+        username: req.body.username,
+        password: req.body.password,
+        role: 1,
+    });
+    await InforDoctor.create({
+        username: req.body.username,
+        hoten: req.body["val-hoten"],
+        namkn: req.body["val-nkn"],
+        email: req.body["val-email"]
     });
     return res.render(path.join(`${__dirname}/../views/admin/formDoctor`));
 };
 const tableDoctor = async (req, res) => {
-    const data = await Admins.findAll();
+    const data = await Account.findAll({
+        where: { role: 1 },
+    });
     return res.render(path.join(`${__dirname}/../views/admin/tableDoctor`), {
         datas: data,
     });

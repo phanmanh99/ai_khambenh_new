@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
     tiensubenh: {
       type: DataTypes.STRING,
     },
+    createby: {
+      type: DataTypes.INTEGER,
+    },
   });
 
   return inforUser;

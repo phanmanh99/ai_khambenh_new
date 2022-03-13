@@ -99,20 +99,20 @@
                     >
                       <thead>
                         <tr>
-                          <th>Số điện thoại</th>
-                          <th>Trạng thái</th>
+                          <th>Họ tên bác sĩ</th>
+                          <th>Họ tên bệnh nhân</th>
                           <th>Ảnh</th>
+                          <th>AI chẩn đoán</th>
+                          <th>Bác sĩ chẩn đoán</th>
+                          <th>Ghi chú</th>
                           <th>Chỉnh sửa/Xóa</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td><%= datas[key].phone %></td>
-                          <td>
-                            <%= datas[key].infer_ai == "1" ? "PNEUMONIA" :
-                            "NORMAL" %>
-                          </td>
+                          <td><%= datas[key].idbacsi %></td>
+                          <td><%= datas[key].idbenhnhan %></td>
                           <td>
                             <img
                               class="myImg"
@@ -122,10 +122,18 @@
                             />
                           </td>
                           <td>
+                            <%= datas[key].infer_ai == "1" ? "Bị viêm phổi" :
+                            "Bình thường" %>
+                          </td>
+                          <td>
+                            <%= datas[key].infer_doctor %>
+                          </td>
+                          <td><%= datas[key].ghichu %></td>
+                          <td>
                             <button
                               class="edit"
                               style="border: none; background: none"
-                              value="<%= datas[key].id %>"
+                              value="<%= datas[key].idimage %>"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +151,7 @@
                             <button
                               class="delete"
                               style="border: none; background: none"
-                              value="<%= datas[key].id %>"
+                              value="<%= datas[key].idimage %>"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -168,9 +176,13 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Số điện thoại</th>
-                          <th>Trạng thái</th>
+                          <th>Họ tên bác sĩ</th>
+                          <th>Họ tên bệnh nhân</th>
                           <th>Ảnh</th>
+                          <th>AI chẩn đoán</th>
+                          <th>Bác sĩ chẩn đoán</th>
+                          <th>Ghi chú</th>
+                          <th>Chỉnh sửa/Xóa</th>
                         </tr>
                       </tfoot>
                     </table>

@@ -55,6 +55,7 @@ const postCheckInfor = async (req, res) => {
     email: req.body["email"],
     sobhyt: req.body["bhyt"],
     tiensubenh: req.body["tsbl"],
+    createby: null
   });
   req.session.User.id = infor.idbenhnhan;
   return res.redirect("/form");
@@ -71,25 +72,34 @@ const postLogin = async (req, res) => {
     if (users.length) {
         if (users[0].password == md5(req.body.password)) {
             req.session.User = {
-                id: 0,
+                idbenhnhan: 0,
+                idbacsi: 0,
+                idkhambenh: 0,
                 username: users[0].username,
                 role: users[0].role,
                 infor: 0,
             };
-            const infor = await InforUser.findAll({
+            const inforuser = await InforUser.findAll({
                 where: { username: req.body.username },
             });
-            if (infor.length) {
+            if (inforuser.length) {
                 //return res.redirect("/");
                 req.session.User.infor = 1;
-                req.session.User.id = infor.idbenhnhan;
+                req.session.User.idbenhnhan = inforuser.idbenhnhan;
             }
+            const infordoctor = await InforDoctor.findAll({
+                where: { username: req.body.username },
+            });
             if (users[0].role == 2){
                 return res.redirect("/");
             }
-            else{
+            else if (users[0].role == 1){
+                req.session.User.idbacsi = infordoctor.idbacsi;
                 return res.redirect("/doctor");
-            }    
+            }
+            else {
+                return res.redirect("/admin");
+            }  
         }
     }
     return res.render(path.join(`${__dirname}/../views/login`), {
@@ -121,7 +131,7 @@ const postRegister = async (req, res) => {
 const form = async (req, res) => {
     const messenger = await Messengers.findAll({
         where: {
-            idbenhnhan: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
             status: 0,
         },
     });
@@ -140,9 +150,13 @@ const postForm = async (req, res) => {
             ]);
             dataToSend = python.toString();
             await Image.create({
-                phone: req.session.User.username,
+                idbacsi: null,
+                idbenhnhan: req.session.User.idbenhnhan,
                 nameimage: iterator.filename,
                 infer_ai: parseInt(dataToSend, 10),
+                infer_doctor: null,
+                inforimage: 2,
+                ghichu: null
             });
         }
     } catch (e) {
@@ -152,15 +166,16 @@ const postForm = async (req, res) => {
     // return res.render(path.join(`${__dirname}/../views/form`));
 };
 const table = async (req, res) => {
+    console.log(req.session.User.idbenhnhan);
     const messenger = await Messengers.findAll({
         where: {
-            idbenhnhan: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
             status: 0,
         },
     });
-    const data = await UserImage.findAll({
+    const data = await Image.findAll({
         where: {
-            phone: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
         },
     });
     return res.render(path.join(`${__dirname}/../views/table`), {
@@ -169,8 +184,8 @@ const table = async (req, res) => {
     });
 };
 const userDelete = async (req, res) => {
-    await UserImage.destroy({
-        where: { id: req.params.id },
+    await Image.destroy({
+        where: { idimage: req.params.id },
     });
     return res.redirect("back");
 };

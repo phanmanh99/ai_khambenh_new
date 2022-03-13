@@ -83,19 +83,19 @@
                                         <div class="row justify-content-center">
                                             <div class="col-xl-8">
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-password">Số điện thoại
+                                                    <label class="col-lg-4 col-form-label" for="username">Tài Khoản
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" class="form-control" id="val-phone" name="val-phone" placeholder="" required>
+                                                        <input type="text" class="form-control" id="username" name="username" placeholder="" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-password">Mật khẩu
+                                                    <label class="col-lg-4 col-form-label" for="password">Mật khẩu
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <input type="password" class="form-control" id="val-password" name="val-password" placeholder="" required>
+                                                        <input type="password" class="form-control" id="password" name="password" placeholder="" required>
                                                         
                                                     </div>
                                                 </div>
@@ -105,6 +105,38 @@
                                                     </label>
                                                     <div class="col-lg-6">
                                                         <input type="password" class="form-control" id="val-confirm-password" name="val-confirm-password" placeholder="" required>
+                                                    </div>
+                                                </div>                                                
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="val-hoten">Họ và tên
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="val-hoten" name="val-hoten" placeholder="" required>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="val-diachi">Địa chỉ
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="val-diachi" name="val-diachi" placeholder="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="val-cmnd">Chứng minh nhân dân
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="val-cmnd" name="val-cmnd" placeholder="" required>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label class="col-lg-4 col-form-label" for="val-sdt">Số điện thoại
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" class="form-control" id="val-sdt" name="val-sdt" placeholder="" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
@@ -116,22 +148,20 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-username">Họ và tên
+                                                    <label class="col-lg-4 col-form-label" for="val-bhyt">Số bảo hiểm y tế
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" class="form-control" id="val-username" name="val-username" placeholder="" required>
+                                                        <input type="text" class="form-control" id="val-bhyt" name="val-bhyt" placeholder="" required>
                                                     </div>
-                                                    
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label class="col-lg-4 col-form-label" for="val-cmnd">Chứng minh nhân dân
+                                                    <label class="col-lg-4 col-form-label" for="val-tsbl">Tiền xử bệnh lý
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="col-lg-6">
-                                                        <input type="text" class="form-control" id="val-cmnd" name="val-cmnd" placeholder="" required>
+                                                        <input type="text" class="form-control" id="val-tsbl" name="val-tsbl" placeholder="" required>
                                                     </div>
-                                                    
                                                 </div>
                                                 <% if(locals.err_msg) { %>
                                                     <div class="alert text-success" role="alert"><%= err_msg %></div>

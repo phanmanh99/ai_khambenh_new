@@ -20,6 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     infer_doctor: {
       type: DataTypes.INTEGER,
     },
+    inforimage: {
+      type: DataTypes.INTEGER,
+    },
     ghichu: {
       type: DataTypes.STRING,
     },
