@@ -60,13 +60,14 @@ const formUser = (req, res) => {
     return res.render(path.join(`${__dirname}/../views/admin/formUser`));
 };
 const postFormUser = async (req, res) => {
+    console.log(req.body["val-username"]);
     await Account.create({
-        uername: req.body.username,
-        password: req.body.password,
+        username: req.body["val-username"],
+        password: md5(req.body["val-password"]),
         role: 2
     });
     await InforUser.create({
-        uername: req.body.uername,
+        username: req.body["val-username"],
         hoten: req.body["val-hoten"],
         diachi: req.body["val-diachi"],
         cmnd: req.body["val-cmnd"],
@@ -88,8 +89,8 @@ const tableUser = async (req, res) => {
     });
 };
 const deleteUser = async (req, res) => {
-    await Users.destroy({
-        where: { id: req.params.id },
+    await Account.destroy({
+        where: { username: req.params.username },
     });
     return res.redirect("back");
 };
@@ -98,12 +99,12 @@ const formDoctor = (req, res) => {
 };
 const postFormDoctor = async (req, res) => {
     await Account.create({
-        username: req.body.username,
-        password: req.body.password,
+        username: req.body["val-username"],
+        password: md5(req.body["val-password"]),
         role: 1,
     });
     await InforDoctor.create({
-        username: req.body.username,
+        username: req.body["val-username"],
         hoten: req.body["val-hoten"],
         namkn: req.body["val-nkn"],
         email: req.body["val-email"]
@@ -119,8 +120,8 @@ const tableDoctor = async (req, res) => {
     });
 };
 const deleteDoctor = async (req, res) => {
-    await Admins.destroy({
-        where: { id: req.params.id },
+    await Account.destroy({
+        where: { username: req.params.username },
     });
     return res.redirect("back");
 };
@@ -129,7 +130,7 @@ const traning = (req, res) => {
 };
 const postTraning = async (req, res) => {
     try {
-        const python = await spawn(config.cmdPython, ["trainModels.py"]);
+        const python = await spawn(config.cmdPython, ["./ai/trainModels.py"]);
     } catch (e) {
         console.log(e.stderr.toString());
     }

@@ -29,7 +29,6 @@ const getTimeline = async (req, res) => {
 const homeUser = async (req, res) => {
     const messenger = await Messengers.findAll({
         where: {
-
             idbenhnhan: req.session.User.username,
             status: 0,
         },
@@ -57,7 +56,7 @@ const postCheckInfor = async (req, res) => {
     tiensubenh: req.body["tsbl"],
     createby: null
   });
-  req.session.User.id = infor.idbenhnhan;
+  req.session.User.infor = 1
   return res.redirect("/form");
 };
 
@@ -85,16 +84,18 @@ const postLogin = async (req, res) => {
             if (inforuser.length) {
                 //return res.redirect("/");
                 req.session.User.infor = 1;
-                req.session.User.idbenhnhan = inforuser.idbenhnhan;
+                req.session.User.idbenhnhan = inforuser[0].idbenhnhan;
+                console.log(req.session.User.idbenhnhan)
             }
-            const infordoctor = await InforDoctor.findAll({
-                where: { username: req.body.username },
-            });
             if (users[0].role == 2){
+                console.log(req.session.User.username);
                 return res.redirect("/");
             }
             else if (users[0].role == 1){
-                req.session.User.idbacsi = infordoctor.idbacsi;
+                const infordoctor = await InforDoctor.findAll({
+                    where: { username: req.body.username },
+                });
+                req.session.User.idbacsi = infordoctor[0].idbacsi;
                 return res.redirect("/doctor");
             }
             else {
@@ -129,6 +130,7 @@ const postRegister = async (req, res) => {
     }
 };
 const form = async (req, res) => {
+    console.log(req.session.User.idbenhnhan);
     const messenger = await Messengers.findAll({
         where: {
             idbenhnhan: req.session.User.idbenhnhan,

@@ -29,7 +29,7 @@ let routes = (app) => {
     userController.postForm
   );
   router.get("/checkinfor", userController.getCheckInfor);
-  router.post("/checkinfor", upload.single("file"), isAdmin.isUser, userController.postCheckInfor);
+  router.post("/checkinfor", upload.single("file"), userController.postCheckInfor);
   router.get("/delete/:id", isAdmin.isUser, userController.getUserDelete);
   router.get("/table", isAdmin.isUser, userController.getTable);
   router.get("/messenger", isAdmin.isUser, userController.getMessenger);
@@ -58,7 +58,7 @@ let routes = (app) => {
   );
   router.get("/admin/tableUser", isAdmin.isAdmin, adminController.getTableUser);
   router.get(
-    "/admin/deleteUser/:id",
+    "/admin/deleteUser/:username",
     isAdmin.isAdmin,
     adminController.getDeleteUser
   );
@@ -78,7 +78,7 @@ let routes = (app) => {
     adminController.getTableDoctor
   );
   router.get(
-    "/admin/deleteDoctor/:id",
+    "/admin/deleteDoctor/:username",
     isAdmin.isAdmin,
     adminController.getDeleteDoctor
   );
