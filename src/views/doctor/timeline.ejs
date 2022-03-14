@@ -7,11 +7,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Trang chủ </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon.png">
-    <link rel="stylesheet" href="./vendor/owl-carousel/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="./vendor/owl-carousel/css/owl.theme.default.min.css">
-    <link href="./vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
-    <link href="./css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/vendor/owl-carousel/css/owl.theme.default.min.css">
+    <link href="/vendor/jqvmap/css/jqvmap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 
 
 
@@ -57,7 +57,7 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="timeline-container" id="timeline-1" style="background-image: url(../images/truongphan.jpg);">
+        <div class="timeline-container" id="timeline-1" style="background-image: url(/images/truongphan.jpg);">
             <div class="timeline-header">
               <h2 class="timeline-header__title">Lịch sử khám bệnh</h2>
               <h3 class="timeline-header__subtitle">PHAN BOI CHAU</h3>
@@ -66,7 +66,7 @@
                 <% for(let key in datas) { %>
                     
               <div class="timeline-item" data-text="<%= datas[key].comment_doctor %>">
-                <div class="timeline__content"><img class="timeline__img" src="../assets/uploads/<%= datas[key].nameimage %>"/>
+                <div class="timeline__content"><img class="timeline__img" src="/assets/uploads/<%= datas[key].nameimage %>"/>
                   <h2 class="timeline__content-title"><%= new Date(datas[key].createdAt).toLocaleDateString() %></h2>
                   <p class="timeline__content-desc"><%= datas[key].donthuoc %></p>
                 </div>
@@ -76,7 +76,7 @@
           </div>
             <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
           
-              <script src="js/index.js"></script>
+              <script src="/js/index.js"></script>
           
         <!--**********************************
             Content body end
@@ -109,35 +109,35 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
-    <script src="./vendor/global/global.min.js"></script>
-    <script src="./js/quixnav-init.js"></script>
-    <script src="./js/custom.min.js"></script>
+    <script src="/vendor/global/global.min.js"></script>
+    <script src="/js/quixnav-init.js"></script>
+    <script src="/js/custom.min.js"></script>
 
 
     <!-- Vectormap -->
-    <script src="./vendor/raphael/raphael.min.js"></script>
-    <script src="./vendor/morris/morris.min.js"></script>
+    <script src="/vendor/raphael/raphael.min.js"></script>
+    <script src="/vendor/morris/morris.min.js"></script>
 
 
-    <script src="./vendor/circle-progress/circle-progress.min.js"></script>
-    <script src="./vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="/vendor/circle-progress/circle-progress.min.js"></script>
+    <script src="/vendor/chart.js/Chart.bundle.min.js"></script>
 
-    <script src="./vendor/gaugeJS/dist/gauge.min.js"></script>
+    <script src="/vendor/gaugeJS/dist/gauge.min.js"></script>
 
     <!--  flot-chart js -->
-    <script src="./vendor/flot/jquery.flot.js"></script>
-    <script src="./vendor/flot/jquery.flot.resize.js"></script>
+    <script src="/vendor/flot/jquery.flot.js"></script>
+    <script src="/vendor/flot/jquery.flot.resize.js"></script>
 
     <!-- Owl Carousel -->
-    <script src="./vendor/owl-carousel/js/owl.carousel.min.js"></script>
+    <script src="/vendor/owl-carousel/js/owl.carousel.min.js"></script>
 
     <!-- Counter Up -->
-    <script src="./vendor/jqvmap/js/jquery.vmap.min.js"></script>
-    <script src="./vendor/jqvmap/js/jquery.vmap.usa.js"></script>
-    <script src="./vendor/jquery.counterup/jquery.counterup.min.js"></script>
+    <script src="/vendor/jqvmap/js/jquery.vmap.min.js"></script>
+    <script src="/vendor/jqvmap/js/jquery.vmap.usa.js"></script>
+    <script src="/vendor/jquery.counterup/jquery.counterup.min.js"></script>
 
 
-    <script src="./js/dashboard/dashboard-1.js"></script>
+    <script src="/js/dashboard/dashboard-1.js"></script>
 
 </body>
 

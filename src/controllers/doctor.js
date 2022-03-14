@@ -26,7 +26,7 @@ const doctorForm = (req, res) => {
     return res.render(path.join(`${__dirname}/../views/doctor/form`));
 };
 const doctorTable = async (req, res) => {
-    const data = await InforUser.findAll({
+    const inforUser = await InforUser.findAll({
         where: {
             username: null,
             createby: req.session.User.idbacsi
@@ -38,8 +38,24 @@ const doctorTable = async (req, res) => {
             inforimage: 1
         },
     });
+
+    const datas = [];
+
+    for (const element of image) {
+        for (const element2 of inforUser) {
+            if (element.idbenhnhan == element2.idbenhnhan) {
+                datas.push(
+                    {
+                        hoten: element2.hoten,
+                        nameimage: element.nameimage,
+                        status: 1
+                    }
+                )
+            }
+        }
+    }
     return res.render(path.join(`${__dirname}/../views/doctor/table`), {
-        datas: data,images: image
+        datas: datas
     });
 };
 const doctorEdit = async (req, res) => {

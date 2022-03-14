@@ -5,13 +5,13 @@ const InforUser = db.inforuser;
 
 const isAdmin = (req, res, next) => {
     if (!req.session.User || req.session.User.role != 0) 
-        return res.redirect("/admin");
+        return res.redirect("/login");
     next()
 }
 
 const isDoctor = (req, res, next) => {
     if (!req.session.User || (req.session.User.role != 0 && req.session.User.role != 1))
-        return res.redirect("/docor");
+        return res.redirect("/login");
     next()
 }
 

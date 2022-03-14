@@ -30,13 +30,19 @@ const uploadFiles = async (req, res) => {
   if (req.session.User)
     for (const iterator of req.files) {
       // console.log(iterator.filename);
-      arrimage.push({idbacsi: req.session.User.idbacsi,
-                nameimage: iterator.filename,
-                inforimage: 1});
       arruser.push({hoten: req.body.hoten,
         sdt: req.body.sdt,
         sobhyt: req.body.bhyt,
         createby: req.session.User.idbacsi});
+      const inforUser = await InforUser.bulkCreate(arruser)
+      
+      arrimage.push(
+        {idbacsi: req.session.User.idbacsi,
+          idbenhnhan: inforUser[0].idbenhnhan,
+        nameimage: iterator.filename,
+        inforimage: 1}
+        );
+      Image.bulkCreate(arrimage);
     }
   else
     for (const iterator of req.files) {
@@ -48,9 +54,9 @@ const uploadFiles = async (req, res) => {
         sobhyt: req.body.bhyt,
         tiensubenh: req.body.tsbl,
         createby: req.session.User.idbacsi});
+        InforUser.bulkCreate(arruser);
+        Image.bulkCreate(arrimage);
     }
-  Image.bulkCreate(arrimage)
-  InforUser.bulkCreate(arruser)
 
   // console.log(arrays);
   // console.log(req.body);

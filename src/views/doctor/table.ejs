@@ -99,9 +99,9 @@
                                             <% for(let key in datas) { %>
                                             <tr>
                                                 <td><input type="checkbox" class="check" value="<%= datas[key].nameimage %>"></td>                                                
-                                                <td>      </td> <!--Tên bệnh nhân: lấy thông tin từ bảng inforuser where inforuser.idbenhnhan == image.idbenhnhan-->                                               
+                                                <td>   <%= datas[key].hoten %>   </td> <!--Tên bệnh nhân: lấy thông tin từ bảng inforuser where inforuser.idbenhnhan == image.idbenhnhan-->                                               
                                                 <td>
-                                                    <img class="myImg" style="max-width: 6em;max-height: 6em;" onclick="zoom(this)" src="./assets/uploads/<%= datas[key].nameimage %>">
+                                                    <img class="myImg" style="max-width: 6em;max-height: 6em;" onclick="zoom(this)" src="/assets/uploads/<%= datas[key].nameimage %>">
                                                 </td>
                                                 <td><% if(datas[key].status == 0) {%>
                                                     <span class="badge badge-danger"><%= datas[key].status %></span>
