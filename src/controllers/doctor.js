@@ -99,20 +99,40 @@ const doctorCheck = async (req, res) => {
     return res.redirect(`back`);
 };
 const doctorTableUser = async (req, res) => {
-    const data = await Account.findAll({
+    const data = await InforUser.findAll({
         where: {
-            role: 2,
+            createby: null,
         },
     });
     return res.render(path.join(`${__dirname}/../views/doctor/tableuser`), {
         datas: data,
     });
 };
+
+const doctorTimeline = async (req, res) => {
+    console.log(req.params.idbenhnhan);
+    idbenhnhan = req.params.idbenhnhan;
+    const khambenh = await KhamBenh.findAll({
+        where: {
+            idbenhnhan: idbenhnhan,
+        },
+    });
+    const idkhambenh = khambenh[0].idkhambenh;
+    const data = await ChiTietKham.findAll({
+        where: {
+            idkhambenh: idkhambenh,
+        },
+    });
+    return res.render(path.join(`${__dirname}/../views/doctor/timeline`), { //TIMELINE
+        datas: data,
+    });
+};
+
 const doctorUser = async (req, res) => {
-    phone = req.params.phone;
+    idbenhnhan = req.params.idbenhnhan;
     const data = await Image.findAll({
         where: {
-            phone: phone,
+            idbenhnhan: idbenhnhan,
         },
     });
     return res.render(path.join(`${__dirname}/../views/doctor/imageusers`), {
@@ -124,15 +144,14 @@ const doctorSendMessenger = async (req, res) => {
     console.log(req.params.phone);
     console.log(req.body);
     await Messengers.create({
-        username: req.params.phone,
-        namedocter: req.session.User.username,
+        idbacsi: req.session.User.idbacsi,
+        idbenhnhan: req.params.idbenhnhan,        
         messenger: req.body.messenger,
-        status: 0,
-        role: 2,
+        status: 0
     });
-    const data = await UserImage.findAll({
+    const data = await Image.findAll({
         where: {
-            // phone: phone,
+            idbenhnhan: req.params.idbenhnhan,
         },
     });
     return res.render(path.join(`${__dirname}/../views/doctor/imageusers`), {
@@ -140,7 +159,11 @@ const doctorSendMessenger = async (req, res) => {
     });
 };
 const doctorMessengers = async (req, res) => {
-    const data = await Users.findAll();
+    const data = await InforUser.findAll({
+        where: {
+            createby: null
+        },
+    });
     return res.render(path.join(`${__dirname}/../views/doctor/usermessengers`), {
         datas: data,
     });
@@ -148,7 +171,7 @@ const doctorMessengers = async (req, res) => {
 const doctorMessenger = async (req, res) => {
     const data = await Messengers.findAll({
         where: {
-            username: req.params.phone,
+            idbenhnhan: req.params.idbenhnhan,
         },
     });
     console.log(data);
@@ -208,6 +231,7 @@ module.exports = {
     getDoctorForm: doctorForm,
     getDoctorTable: doctorTable,
     getDoctorCheck: doctorCheck,
+    getDoctorTimeline: doctorTimeline,
     postDoctorEdit: doctorEdit,
     getDoctorDelete: doctorDelete,
     getDoctorTableUser: doctorTableUser,

@@ -99,11 +99,9 @@
                                             <% for(let key in datas) { %>
                                             <tr>
                                                 <td><input type="checkbox" class="check" value="<%= datas[key].nameimage %>"></td>                                                
-                                                <td><%= datas[key].hoten %></td> <% } %>
-                                                <!-- <td><%= datas[key].status == "1" ? "Bệnh viêm phổi" : "Không bị bệnh" %></td> -->
+                                                <td>      </td> <!--Tên bệnh nhân: lấy thông tin từ bảng inforuser where inforuser.idbenhnhan == image.idbenhnhan-->                                               
                                                 <td>
-                                                        <img class="myImg" style="max-width: 6em;max-height: 6em;" onclick="zoom(this)" src="/assets/uploads/<%= datas[key].nameimage %>">
-
+                                                    <img class="myImg" style="max-width: 6em;max-height: 6em;" onclick="zoom(this)" src="./assets/uploads/<%= datas[key].nameimage %>">
                                                 </td>
                                                 <td><% if(datas[key].status == 0) {%>
                                                     <span class="badge badge-danger"><%= datas[key].status %></span>
@@ -289,7 +287,7 @@
                 for (i = 0; i < filesAmount; i++) {
                 let reader = new FileReader();
                 reader.onload = function(event) {
-                    $($.parseHTML("<img style='max-width: 20em;max-height: 20em;' >"))
+                    $($.parseHTML("<img style='max-width: 6em;max-height: 6em;' >"))
                     .attr("src", event.target.result)
                     .appendTo(placeToInsertImagePreview);
                 };

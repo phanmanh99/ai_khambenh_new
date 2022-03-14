@@ -99,8 +99,8 @@
                     >
                       <thead>
                         <tr>
-                          <th>Họ tên bác sĩ</th>
                           <th>Họ tên bệnh nhân</th>
+                          <th>Họ tên bác sĩ</th>
                           <th>Ảnh</th>
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>
@@ -111,12 +111,12 @@
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td><%= datas[key].idbacsi %></td>
-                          <td><%= datas[key].idbenhnhan %></td>
+                          <td><!--Tên bệnh nhân--></td>   <!--Tên bệnh nhân. lấy thông tin từ bảng inforuser where image.idbenhnhan == inforuser.idbenhnhan-->                         
+                          <td><%= !datas[key].idbacsi ? "Bác sĩ chưa xác nhận" : (datas[key].idbacsi) %></td>
                           <td>
                             <img
                               class="myImg"
-                              style="max-width: 20em; max-height: 20em"
+                              style="max-width: 6em; max-height: 6em"
                               onclick="zoom(this)"
                               src="assets/uploads/<%= datas[key].nameimage %>"
                             />
@@ -125,9 +125,7 @@
                             <%= datas[key].infer_ai == "1" ? "Bị viêm phổi" :
                             "Bình thường" %>
                           </td>
-                          <td>
-                            <%= datas[key].infer_doctor %>
-                          </td>
+                          <td><%= !datas[key].infer_doctor ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "PNEUMONIA" : "NORMAL") %></td>
                           <td><%= datas[key].ghichu %></td>
                           <td>
                             <button
@@ -176,8 +174,8 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Họ tên bác sĩ</th>
                           <th>Họ tên bệnh nhân</th>
+                          <th>Họ tên bác sĩ</th>
                           <th>Ảnh</th>
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>

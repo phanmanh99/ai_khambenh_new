@@ -107,6 +107,11 @@ let routes = (app) => {
   router.get("/doctor/form", isAdmin.isDoctor, doctorController.getDoctorForm);
   router.get("/doctor/table", isAdmin.isDoctor, doctorController.getDoctorTable);
   router.get(
+    "/doctor/timeline/:idbenhnhan",
+    isAdmin.isDoctor,
+    doctorController.getDoctorTimeline
+  );
+  router.get(
     "/doctor/check/:array",
     isAdmin.isDoctor,
     doctorController.getDoctorCheck
@@ -127,12 +132,12 @@ let routes = (app) => {
     doctorController.getDoctorTableUser
   );
   router.get(
-    "/doctor/user/:phone",
+    "/doctor/user/:idbenhnhan",
     isAdmin.isDoctor,
     doctorController.getDoctorUser
   );
   router.post(
-    "/doctor/user/send/:phone",
+    "/doctor/user/send/:idbenhnhan",
     upload.single("file"),
     isAdmin.isDoctor,
     doctorController.postDoctorSendMessenger
@@ -143,7 +148,7 @@ let routes = (app) => {
     doctorController.getDoctorMessengers
   );
   router.get(
-    "/doctor/messenger/:phone",
+    "/doctor/messenger/:idbenhnhan",
     isAdmin.isDoctor,
     doctorController.getDoctorMessenger
   );

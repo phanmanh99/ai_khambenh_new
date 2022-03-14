@@ -130,7 +130,7 @@ const traning = (req, res) => {
 };
 const postTraning = async (req, res) => {
     try {
-        const python = await spawn(config.cmdPython, ["./ai/trainModels.py"]);
+        const python = await spawn(config.cmdPython, [config.aiHuanLuyen]);
     } catch (e) {
         console.log(e.stderr.toString());
     }

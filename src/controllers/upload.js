@@ -25,12 +25,12 @@ const uploadFiles = async (req, res) => {
       return res.send(`You must select a file.`);
     }
 
-  const arrays = []
+  const arrimage = []
   const arruser = []
   if (req.session.User)
     for (const iterator of req.files) {
       // console.log(iterator.filename);
-      arrays.push({idbacsi: req.session.User.idbacsi,
+      arrimage.push({idbacsi: req.session.User.idbacsi,
                 nameimage: iterator.filename,
                 inforimage: 1});
       arruser.push({hoten: req.body.hoten,
@@ -41,13 +41,15 @@ const uploadFiles = async (req, res) => {
   else
     for (const iterator of req.files) {
       // console.log(iterator.filename);
-      arrays.push({nameimage: iterator.filename,inforimage: 1});
+      arrimage.push({nameimage: iterator.filename,inforimage: 1});
       arruser.push({hoten: req.body.hoten,
         sdt: req.body.sdt,
+        diachi: req.body.diachi,
         sobhyt: req.body.bhyt,
+        tiensubenh: req.body.tsbl,
         createby: req.session.User.idbacsi});
     }
-  Image.bulkCreate(arrays)
+  Image.bulkCreate(arrimage)
   InforUser.bulkCreate(arruser)
 
   // console.log(arrays);
