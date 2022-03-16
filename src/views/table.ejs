@@ -102,16 +102,17 @@
                           <th>Họ tên bệnh nhân</th>
                           <th>Họ tên bác sĩ</th>
                           <th>Ảnh</th>
+                          <th>Tình trạng</th>
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>
                           <th>Ghi chú</th>
-                          <th>Chỉnh sửa/Xóa</th>
+                          <th>Xóa</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td><!--Tên bệnh nhân--></td>   <!--Tên bệnh nhân. lấy thông tin từ bảng inforuser where image.idbenhnhan == inforuser.idbenhnhan-->                         
+                          <td><%= datas[key].hoten %></td>   <!--Tên bệnh nhân. lấy thông tin từ bảng inforuser where image.idbenhnhan == inforuser.idbenhnhan-->                         
                           <td><%= !datas[key].idbacsi ? "Bác sĩ chưa xác nhận" : (datas[key].idbacsi) %></td>
                           <td>
                             <img
@@ -121,31 +122,19 @@
                               src="assets/uploads/<%= datas[key].nameimage %>"
                             />
                           </td>
+                          <td><% if(datas[key].status == 0) {%>                            
+                            <span class="badge badge-danger"><h6>Chưa<br>chẩn đoán</h6></span>
+                            <%} else {%>
+                            <span class="badge badge-success"><h6>Đã<br>chẩn đoán</h6></span>
+                            <%}%>
+                        </td>
                           <td>
                             <%= datas[key].infer_ai == "1" ? "Bị viêm phổi" :
                             "Bình thường" %>
                           </td>
-                          <td><%= !datas[key].infer_doctor ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "PNEUMONIA" : "NORMAL") %></td>
+                          <td><%= !datas[key].infer_doctor ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "Bị viêm phổi" : "Bình thường") %></td>
                           <td><%= datas[key].ghichu %></td>
-                          <td>
-                            <button
-                              class="edit"
-                              style="border: none; background: none"
-                              value="<%= datas[key].idimage %>"
-                            >
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                fill="currentColor"
-                                class="bi bi-pen"
-                                viewBox="0 0 16 16"
-                              >
-                                <path
-                                  d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"
-                                />
-                              </svg>
-                            </button>
+                          <td>                            
                             <button
                               class="delete"
                               style="border: none; background: none"
@@ -180,7 +169,7 @@
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>
                           <th>Ghi chú</th>
-                          <th>Chỉnh sửa/Xóa</th>
+                          <th>Xóa</th>
                         </tr>
                       </tfoot>
                     </table>
@@ -233,15 +222,7 @@
     <script src="/js/plugins-init/datatables.init.js"></script>
     <script src="/js/zoom-img.js"></script>
     <script>
-      $(document).ready(function () {
-        $(".edit").click(function () {
-          // $(this).hide();
-          if (confirm("123"))
-            window.location.href =
-              window.location.origin + "/edit/" + this.value;
-          // alert(this.value)
-        });
-
+      $(document).ready(function () {      
         $(".delete").click(function () {
           // $(this).hide();
           if (confirm("Bạn có muốn xóa Ảnh"))

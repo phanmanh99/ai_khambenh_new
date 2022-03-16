@@ -14,6 +14,9 @@ module.exports = (sequelize, DataTypes) => {
     nameimage: {
       type: DataTypes.STRING,
     },
+    status: {
+      type: DataTypes.INTEGER,
+    },
     infer_ai: {
       type: DataTypes.INTEGER,
     },

@@ -56,7 +56,11 @@ const postCheckInfor = async (req, res) => {
     tiensubenh: req.body["tsbl"],
     createby: null
   });
-  req.session.User.infor = 1
+  const users = await InforUser.findAll({
+    where: { username: req.session.User.username },
+});
+  req.session.User.infor = 1;
+  req.session.User.idbenhnhan = users[0].idbenhnhan;
   return res.redirect("/form");
 };
 
@@ -88,7 +92,7 @@ const postLogin = async (req, res) => {
                 console.log(req.session.User.idbenhnhan)
             }
             if (users[0].role == 2){
-                console.log(req.session.User.username);
+                console.log(req.session.User.idbenhnhan);
                 return res.redirect("/");
             }
             else if (users[0].role == 1){
@@ -155,10 +159,10 @@ const postForm = async (req, res) => {
                 idbacsi: null,
                 idbenhnhan: req.session.User.idbenhnhan,
                 nameimage: iterator.filename,
+                status: 1,
                 infer_ai: parseInt(dataToSend, 10),
                 infer_doctor: null,
-                inforimage: 2,
-                ghichu: null
+                inforimage: 2
             });
         }
     } catch (e) {
@@ -175,13 +179,38 @@ const table = async (req, res) => {
             status: 0,
         },
     });
-    const data = await Image.findAll({
+    const image = await Image.findAll({
         where: {
             idbenhnhan: req.session.User.idbenhnhan,
         },
     });
+
+    const inforUser = await InforUser.findAll({
+        where: {
+            idbenhnhan: req.session.User.idbenhnhan
+        },
+    });
+
+    const datas = [];
+
+    for (const element of image) {
+        for (const element2 of inforUser) {
+            if (element.idbenhnhan == element2.idbenhnhan) {
+                datas.push(
+                    {
+                        hoten: element2.hoten,
+                        idbacsi: element.idbacsi,
+                        nameimage: element.nameimage,
+                        status: element.status,
+                        infer_ai: element.infer_ai,
+                        infer_doctor: element.infer_doctor,
+                    }
+                )
+            }
+        }
+    }
     return res.render(path.join(`${__dirname}/../views/table`), {
-        datas: data,
+        datas: datas,
         messenger: messenger,
     });
 };
@@ -192,9 +221,10 @@ const userDelete = async (req, res) => {
     return res.redirect("back");
 };
 const Messenger = async (req, res) => {
+    console.log(req.session.User.idbenhnhan)
     const data = await Messengers.findAll({
         where: {
-            idbenhnhan: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
         },
     });
     await Messengers.update({ status: 1 }, {

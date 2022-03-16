@@ -48,7 +48,9 @@ const doctorTable = async (req, res) => {
                     {
                         hoten: element2.hoten,
                         nameimage: element.nameimage,
-                        status: 1
+                        status: element.status,
+                        infer_ai: element.infer_ai,
+                        infer_doctor: element.infer_doctor,
                     }
                 )
             }
@@ -58,6 +60,51 @@ const doctorTable = async (req, res) => {
         datas: datas
     });
 };
+const getDoctorHistory = async (req, res) => {
+    console.log(req.params.idbenhnhan)
+    const data = {idbacsi: req.session.User.idbacsi,
+    idbenhnhan: req.params.idbenhnhan}
+    return res.render(path.join(`${__dirname}/../views/doctor/lichsukham`), {
+        datas: data
+    });
+};
+
+const postDoctorHistory = async (req, res) => {
+    console.log(req.files);
+    console.log(req.params.idbenhnhan);
+    console.log(req.params.idbenhnhan);
+    const khambenh = await KhamBenh.findAll({
+        where: {idbacsi: req.body["idbacsi"],
+        idbenhnhan: req.body["idbenhnhan"], }
+    });
+    if (!khambenh.length){
+        await KhamBenh.create({
+            idbacsi: req.body["idbacsi"],
+            idbenhnhan: req.body["idbenhnhan"],
+        });
+    }
+    const khambenh02 = await KhamBenh.findAll({
+        where: {idbacsi: req.body["idbacsi"],
+        idbenhnhan: req.body["idbenhnhan"], }
+    });
+    try {
+        for (const iterator of req.files) {
+            await ChiTietKham.create({                
+                idkhambenh: khambenh02[0].idkhambenh,
+                nameimage: iterator.filename,
+                comment_doctor: req.body["comment_doctor"],
+                mucdo: req.body["mucdo"],
+                donthuoc: req.body["donthuoc"],
+                ngaykham: req.body["ngaykham"]
+            });
+        }
+    } catch (e) {
+        console.log(e.stderr.toString());
+    }
+    
+    req.session.User.infor = 1
+    return res.redirect("/doctor/tableuser");
+  };
 const doctorEdit = async (req, res) => {
     // console.log(req);
     // await Admins.create({
@@ -67,17 +114,16 @@ const doctorEdit = async (req, res) => {
     // })
     let data = {};
     if (req.file) data.nameimage = req.file.filename;
-    if (req.body.username) data.name = req.body.username;
     if (req.body.infer_doctor) data.infer_doctor = req.body.infer_doctor;
     console.log(data);
     await Image.update(data, {
-        where: { id: req.body.id },
+        where: { nameimage: req.body.nameimage },
     });
     return res.redirect("/doctor/table");
 };
 const doctorDelete = async (req, res) => {
     await Image.destroy({
-        where: { id: req.params.id },
+        where: { nameimage: req.params.nameimage },
     });
     const data = await Image.findAll();
     // res.send("123");
@@ -117,12 +163,50 @@ const doctorCheck = async (req, res) => {
 const doctorTableUser = async (req, res) => {
     const data = await InforUser.findAll({
         where: {
-            createby: null,
+            createby: req.session.User.idbacsi,
         },
     });
     return res.render(path.join(`${__dirname}/../views/doctor/tableuser`), {
         datas: data,
     });
+};
+
+const doctorTableUserOnline = async (req, res) => {
+    const data = await InforUser.findAll({
+        where: {
+            createby: null,
+        },
+    });
+    return res.render(path.join(`${__dirname}/../views/doctor/tableuseronline`), {
+        datas: data,
+    });
+};
+const doctorEditOnline = async (req, res) => {
+    const data = await Image.findAll({
+        where: {
+            idbenhnhan: req.params.idbenhnhan,
+        },
+    });
+    return res.render(path.join(`${__dirname}/../views/doctor/editonline`), {
+        datas: data
+    });
+};
+
+const doctorUpdateOnline = async (req, res) => {
+    console.log(req.session.User.idbacsi)
+    console.log(req.body.infer_doctor)
+    console.log(req.body.nameimage)
+    
+    let data = {};
+    if (req.body.infer_doctor) {
+        data.idbacsi = req.session.User.idbacsi;
+        data.infer_doctor = req.body.infer_doctor;
+    }
+    console.log(data);
+    await Image.update(data, {
+        where: { nameimage: req.body.nameimage },
+    });
+    return res.redirect("/doctor/tableuseronline");
 };
 
 const doctorTimeline = async (req, res) => {
@@ -133,15 +217,20 @@ const doctorTimeline = async (req, res) => {
             idbenhnhan: idbenhnhan,
         },
     });
-    const idkhambenh = khambenh[0].idkhambenh;
-    const data = await ChiTietKham.findAll({
-        where: {
-            idkhambenh: idkhambenh,
-        },
-    });
-    return res.render(path.join(`${__dirname}/../views/doctor/timeline`), { //TIMELINE
-        datas: data,
-    });
+    if(khambenh.length){
+        const idkhambenh = khambenh[0].idkhambenh;
+        const data = await ChiTietKham.findAll({
+            where: {
+                idkhambenh: idkhambenh,
+            },
+        });
+        return res.render(path.join(`${__dirname}/../views/doctor/timeline`), { //TIMELINE
+            datas: data,
+        });
+    }
+    else{
+        return res.redirect("/doctor/tableuser");
+    }
 };
 
 const doctorUser = async (req, res) => {
@@ -157,13 +246,12 @@ const doctorUser = async (req, res) => {
 };
 const doctorSendMessenger = async (req, res) => {
     console.log(req.session.User);
-    console.log(req.params.phone);
-    console.log(req.body);
+    console.log(req.body.messenger);
     await Messengers.create({
         idbacsi: req.session.User.idbacsi,
         idbenhnhan: req.params.idbenhnhan,        
-        messenger: req.body.messenger,
-        status: 0
+        messengers: req.body.messenger,
+        status: 0,
     });
     const data = await Image.findAll({
         where: {
@@ -247,10 +335,15 @@ module.exports = {
     getDoctorForm: doctorForm,
     getDoctorTable: doctorTable,
     getDoctorCheck: doctorCheck,
+    getDoctorHistory: getDoctorHistory,
+    postDoctorHistory: postDoctorHistory,
     getDoctorTimeline: doctorTimeline,
+    getDoctorEditOnline: doctorEditOnline,
+    getDoctorUpdateOnline: doctorUpdateOnline,
     postDoctorEdit: doctorEdit,
     getDoctorDelete: doctorDelete,
     getDoctorTableUser: doctorTableUser,
+    getDoctorTableUserOnline: doctorTableUserOnline,
     getDoctorUser: doctorUser,
     postDoctorSendMessenger: doctorSendMessenger,
     getDoctorMessengers: doctorMessengers,

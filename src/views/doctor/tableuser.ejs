@@ -19,7 +19,7 @@
     />
     <!-- Custom Stylesheet -->
     <link href="/css/style.css" rel="stylesheet" />
-    <style>
+    <style>      
       .hover {
         color: red;
         background-color: red !important;
@@ -96,7 +96,7 @@
                 <div class="card-header">
                   <h4 class="card-title">Danh sách</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body ">
                   <div class="table-responsive">
                     <table
                       id="example"
@@ -109,8 +109,8 @@
                           <th>Tên bệnh nhân</th>
                           <th>Số bảo hiểm y tế</th>
                           <th>Ngày tham gia</th>
-                          <th>Tin nhắn</th>
                           <th>Lịch sử khám bệnh</th>
+                          <th>Cập nhật LSKB</th>                          
                         </tr>
                       </thead>
                       <tbody>
@@ -123,8 +123,8 @@
                             <%= new
                             Date(datas[key].createdAt).toLocaleDateString() %>
                           </td>
-                          <td><a href="/doctor/user/<%= datas[key].idbenhnhan %>">Gửi tin nhắn</a></td>
-                          <td><a href="/doctor/timeline/<%= datas[key].idbenhnhan %>">Xem lịch sử khám bệnh</a></td>
+                          <td><a href="/doctor/timeline/<%= datas[key].idbenhnhan %>" target="_blank">Xem lịch sử khám bệnh</a></td>
+                          <td><a href="/doctor/lichsukham/<%= datas[key].idbenhnhan %>" target="_blank">Cập nhật LSKB</a></td>                          
                         </tr>
                         <% } %>
                       </tbody>
@@ -134,8 +134,8 @@
                           <th>Tên bệnh nhân</th>
                           <th>Số bảo hiểm y tế</th>
                           <th>Ngày tham gia</th>
-                          <th>Tin nhắn</th>
                           <th>Lịch sử khám bệnh</th>
+                          <th>Cập nhật LSKB</th> 
                         </tr>
                       </tfoot>
                     </table>

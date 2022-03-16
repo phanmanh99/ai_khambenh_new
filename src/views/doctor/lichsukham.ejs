@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Thêm ảnh </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+    <link href="/css/style.css" rel="stylesheet">
+    
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <%- include('layout/header'); %>
+        <!--**********************************
+            Header end
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+
+        <!--<%- include('layout/sidebar'); %>-->
+        
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Thêm lịch sử khám bệnh</h4>
+                            <p class="mb-1">Thêm lịch sử khám bệnh</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Bác sĩ</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Thêm lịch sử khám bệnh</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+                <div class="form-group text-dark">
+                    <label><h2>Cập nhật lịch sử khám bệnh</h2></label>
+                </div>
+                <form class="form-valide text-dark" action="/doctor/lichsukham/update<% if(datas != 'undefined' && datas != null && datas.length != 0){%><%= '/' + datas.idbenhnhan%><%}%>" method="POST" enctype="multipart/form-data">
+                    <div class="row justify-content-center">                        
+                        <div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-idbacsi">ID bác sĩ
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-idbacsi" name="idbacsi" value="<%= datas.idbacsi %>" readonly>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-idbenhnhan">ID bệnh nhân
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-idbenhnhan" name="idbenhnhan" value="<%= datas.idbenhnhan %>" readonly>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-comment_doctor">Lời khuyên của bác sĩ
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-comment_doctor" name="comment_doctor" placeholder="" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-mucdo">Mức độ
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-mucdo" name="mucdo" placeholder="" required>
+                                </div>
+                            </div>                        
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-donthuoc">Đơn thuốc
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-donthuoc" name="donthuoc" placeholder="" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-ngaykham">Ngày khám
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-ngaykham" name="ngaykham" placeholder="" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="file">Ảnh chụp <span
+                                    class="text-danger">*</span>
+                            </label>
+                                <div class="col-lg-8">
+                                    <input type="file" class="form-control-file" id="input-files" name="file" multiple>
+                                  </div>
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <div class="col-lg-8">
+                                    <div class="preview-images"></div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>                    
+                    <br><div class="form-group row">
+                        <div class="col-lg-8 ml-auto">
+                            <button type="submit" class="btn btn-primary" style="width: 5cm;" >Gửi thông tin</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <%- include('layout/footer'); %>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+
+    <!-- Required vendors -->
+    <script src="/vendor/global/global.min.js"></script>
+    <script src="/js/quixnav-init.js"></script>
+    <script src="/js/custom.min.js"></script>
+    
+
+
+
+    <!-- Jquery Validation -->
+    <script src="/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Form validate init -->
+    <script src="/js/plugins-init/jquery.validate-init.js"></script>
+    <script>
+        let imagesPreview = function(input, placeToInsertImagePreview) {
+          if (input.files) {
+            let filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+              let reader = new FileReader();
+              reader.onload = function(event) {
+                $($.parseHTML("<img class = 'col-lg-8'>"))
+                  .attr("src", event.target.result)
+                  .appendTo(placeToInsertImagePreview);
+              };
+              reader.readAsDataURL(input.files[i]);
+            }
+          }
+        };
+        $("#input-files").on("change", function() {
+          imagesPreview(this, "div.preview-images");
+        });
+    </script>
+</body>
+
+</html>

@@ -106,10 +106,23 @@ let routes = (app) => {
   router.get("/doctor/", isAdmin.isDoctor, doctorController.getHoneDoctor);
   router.get("/doctor/form", isAdmin.isDoctor, doctorController.getDoctorForm);
   router.get("/doctor/table", isAdmin.isDoctor, doctorController.getDoctorTable);
+  router.get("/doctor/lichsukham/:idbenhnhan", isAdmin.isDoctor, doctorController.getDoctorHistory);
+  router.post("/doctor/lichsukham/update/:idbenhnhan",upload.array("file", 10),isAdmin.isDoctor, doctorController.postDoctorHistory);
   router.get(
     "/doctor/timeline/:idbenhnhan",
     isAdmin.isDoctor,
     doctorController.getDoctorTimeline
+  );
+  router.get(
+    "/doctor/editonline/:idbenhnhan",
+    isAdmin.isDoctor,
+    doctorController.getDoctorEditOnline
+  );
+  router.post(
+    "/doctor/updateonline/",
+    upload.single("file"),
+    isAdmin.isDoctor,
+    doctorController.getDoctorUpdateOnline
   );
   router.get(
     "/doctor/check/:array",
@@ -117,7 +130,7 @@ let routes = (app) => {
     doctorController.getDoctorCheck
   );
   router.post(
-    "/doctor/edit",
+    "/doctor/edit/",
     upload.single("file"),
     doctorController.postDoctorEdit
   );
@@ -127,7 +140,13 @@ let routes = (app) => {
     doctorController.getDoctorDelete
   );
   router.get(
+    "/doctor/tableuseronline",
+    isAdmin.isDoctor,
+    doctorController.getDoctorTableUserOnline
+  );
+  router.get(
     "/doctor/tableuser",
+    upload.single("file"),
     isAdmin.isDoctor,
     doctorController.getDoctorTableUser
   );
