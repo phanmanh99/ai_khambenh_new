@@ -96,7 +96,7 @@
                 <div class="card-header">
                   <h4 class="card-title">Danh sách</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                   <div class="table-responsive">
                     <table
                       id="example"
@@ -121,7 +121,7 @@
                           <td><%= datas[key].status == "1" ? "Đã xem" : "Chưa xem" %></td>
                           <td>
                             <%= new
-                            Date(datas[key].createdAt).toLocaleDateString() %>
+                            Date(datas[key].createdAt).toLocaleDateString('en-GB') %>
                           </td>
                         </tr>
                         <% } %>

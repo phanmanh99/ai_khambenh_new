@@ -197,13 +197,15 @@ const table = async (req, res) => {
         for (const element2 of inforUser) {
             if (element.idbenhnhan == element2.idbenhnhan) {
                 datas.push(
-                    {
+                    {   
+                        idimage: element.idimage,
                         hoten: element2.hoten,
                         idbacsi: element.idbacsi,
                         nameimage: element.nameimage,
                         status: element.status,
                         infer_ai: element.infer_ai,
                         infer_doctor: element.infer_doctor,
+                        createdAt: element.createdAt
                     }
                 )
             }

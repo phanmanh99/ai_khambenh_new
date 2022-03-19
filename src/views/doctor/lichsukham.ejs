@@ -72,7 +72,7 @@
                 </div>
                 <!-- row -->
                 <div class="form-group text-dark">
-                    <label><h2>Cập nhật lịch sử khám bệnh</h2></label>
+                    <h2 style="text-align: center;">Cập nhật lịch sử khám bệnh</h2>
                 </div>
                 <form class="form-valide text-dark" action="/doctor/lichsukham/update<% if(datas != 'undefined' && datas != null && datas.length != 0){%><%= '/' + datas.idbenhnhan%><%}%>" method="POST" enctype="multipart/form-data">
                     <div class="row justify-content-center">                        
@@ -85,7 +85,8 @@
                                     <input type="text" class="form-control" id="val-idbacsi" name="idbacsi" value="<%= datas.idbacsi %>" readonly>
                                 </div>
                             </div>
-                        </div><div class="col-xl-8">                                                      
+                        </div>
+                        <div class="col-xl-8">                                                      
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="val-idbenhnhan">ID bệnh nhân
                                     <span class="text-danger">*</span>
@@ -94,34 +95,8 @@
                                     <input type="text" class="form-control" id="val-idbenhnhan" name="idbenhnhan" value="<%= datas.idbenhnhan %>" readonly>
                                 </div>
                             </div>
-                        </div><div class="col-xl-8">                                                      
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="val-comment_doctor">Lời khuyên của bác sĩ
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="val-comment_doctor" name="comment_doctor" placeholder="" required>
-                                </div>
-                            </div>
-                        </div><div class="col-xl-8">                                                      
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="val-mucdo">Mức độ
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="val-mucdo" name="mucdo" placeholder="" required>
-                                </div>
-                            </div>                        
-                        </div><div class="col-xl-8">                                                      
-                            <div class="form-group row">
-                                <label class="col-lg-4 col-form-label" for="val-donthuoc">Đơn thuốc
-                                    <span class="text-danger">*</span>
-                                </label>
-                                <div class="col-lg-6">
-                                    <input type="text" class="form-control" id="val-donthuoc" name="donthuoc" placeholder="" required>
-                                </div>
-                            </div>
-                        </div><div class="col-xl-8">                                                      
+                        </div>
+                        <div class="col-xl-8">                                                      
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="val-ngaykham">Ngày khám
                                     <span class="text-danger">*</span>
@@ -130,7 +105,8 @@
                                     <input type="text" class="form-control" id="val-ngaykham" name="ngaykham" placeholder="" required>
                                 </div>
                             </div>
-                        </div><div class="col-xl-8">                                                      
+                        </div>  
+                        <div class="col-xl-8">                                                      
                             <div class="form-group row">
                                 <label class="col-lg-4 col-form-label" for="file">Ảnh chụp <span
                                     class="text-danger">*</span>
@@ -144,7 +120,38 @@
                                     <div class="preview-images"></div>
                                 </div>
                             </div>  
+                        </div>                      
+                        <div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-mucdo">Mức độ
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-mucdo" name="mucdo" placeholder="" required>
+                                </div>
+                            </div>                        
                         </div>
+                        <div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-donthuoc">Đơn thuốc
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-donthuoc" name="donthuoc" placeholder="" required>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-comment_doctor">Lời khuyên của bác sĩ
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-comment_doctor" name="comment_doctor" placeholder="" required>
+                                </div>
+                            </div>
+                        </div>                     
+                        
                     </div>                    
                     <br><div class="form-group row">
                         <div class="col-lg-8 ml-auto">

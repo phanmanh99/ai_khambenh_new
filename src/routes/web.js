@@ -135,7 +135,7 @@ let routes = (app) => {
     doctorController.postDoctorEdit
   );
   router.get(
-    "/doctor/delete/:id",
+    "/doctor/delete/:nameimage",
     isAdmin.isDoctor,
     doctorController.getDoctorDelete
   );

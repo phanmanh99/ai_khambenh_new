@@ -96,7 +96,7 @@
                 <div class="card-header">
                   <h4 class="card-title">Danh sách</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                   <div class="table-responsive">
                     <table
                       id="example"
@@ -110,7 +110,7 @@
                           <th>Số bảo hiểm y tế</th>
                           <th>Ngày tham gia</th>
                           <th>Tin nhắn</th>
-                          <th>Lịch sử khám bệnh</th>
+                          <th>Lịch sử chẩn đoán bệnh bằng AI</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -121,10 +121,10 @@
                           <td><%= datas[key].sobhyt %></td>                          
                           <td>
                             <%= new
-                            Date(datas[key].createdAt).toLocaleDateString() %>
+                            Date(datas[key].createdAt).toLocaleDateString('en-GB') %>
                           </td>
                           <td><a href="/doctor/user/<%= datas[key].idbenhnhan %>">Gửi tin nhắn</a></td>
-                          <td><a href="/doctor/editonline/<%= datas[key].idbenhnhan %>">Xem lịch sử khám bệnh</a></td>
+                          <td><a href="/doctor/editonline/<%= datas[key].idbenhnhan %>">Xem lịch sử </a></td>
                         </tr>
                         <% } %>
                       </tbody>
@@ -135,7 +135,7 @@
                           <th>Số bảo hiểm y tế</th>
                           <th>Ngày tham gia</th>
                           <th>Tin nhắn</th>
-                          <th>Lịch sử khám bệnh</th>
+                          <th>Lịch sử chẩn đoán bệnh bằng AI</th>
                         </tr>
                       </tfoot>
                     </table>

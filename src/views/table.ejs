@@ -90,7 +90,7 @@
                 <div class="card-header">
                   <h4 class="card-title">Danh sách</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                   <div class="table-responsive">
                     <table
                       id="example"
@@ -100,12 +100,12 @@
                       <thead>
                         <tr>
                           <th>Họ tên bệnh nhân</th>
-                          <th>Họ tên bác sĩ</th>
+                          <th>ID bác sĩ chẩn đoán</th>
                           <th>Ảnh</th>
                           <th>Tình trạng</th>
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>
-                          <th>Ghi chú</th>
+                          <th>Ngày chẩn đoán</th>
                           <th>Xóa</th>
                         </tr>
                       </thead>
@@ -132,8 +132,11 @@
                             <%= datas[key].infer_ai == "1" ? "Bị viêm phổi" :
                             "Bình thường" %>
                           </td>
-                          <td><%= !datas[key].infer_doctor ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "Bị viêm phổi" : "Bình thường") %></td>
-                          <td><%= datas[key].ghichu %></td>
+                          <td><%= datas[key].infer_doctor == null ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "Bị viêm phổi" : "Bình thường") %></td>
+                          <td>
+                            <%= new
+                            Date(datas[key].createdAt).toLocaleDateString('en-GB') %>
+                          </td>
                           <td>                            
                             <button
                               class="delete"
@@ -164,11 +167,12 @@
                       <tfoot>
                         <tr>
                           <th>Họ tên bệnh nhân</th>
-                          <th>Họ tên bác sĩ</th>
+                          <th>ID bác sĩ chẩn đoán</th>
                           <th>Ảnh</th>
+                          <th>Tình trạng</th>
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>
-                          <th>Ghi chú</th>
+                          <th>Ngày chẩn đoán</th>
                           <th>Xóa</th>
                         </tr>
                       </tfoot>

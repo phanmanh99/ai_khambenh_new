@@ -96,7 +96,7 @@
                 <div class="card-header">
                   <h4 class="card-title">Danh sách</h4>
                 </div>
-                <div class="card-body ">
+                <div class="card-body text-center">
                   <div class="table-responsive">
                     <table
                       id="example"
@@ -121,10 +121,10 @@
                           <td><%= datas[key].sobhyt %></td>                          
                           <td>
                             <%= new
-                            Date(datas[key].createdAt).toLocaleDateString() %>
+                            Date(datas[key].createdAt).toLocaleDateString('en-GB') %>
                           </td>
-                          <td><a href="/doctor/timeline/<%= datas[key].idbenhnhan %>" target="_blank">Xem lịch sử khám bệnh</a></td>
-                          <td><a href="/doctor/lichsukham/<%= datas[key].idbenhnhan %>" target="_blank">Cập nhật LSKB</a></td>                          
+                          <td><a href="/doctor/timeline/<%= datas[key].idbenhnhan %>" >Xem lịch sử khám bệnh</a></td>
+                          <td><a href="/doctor/lichsukham/<%= datas[key].idbenhnhan %>" >Cập nhật LSKB</a></td>                          
                         </tr>
                         <% } %>
                       </tbody>

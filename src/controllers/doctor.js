@@ -51,6 +51,7 @@ const doctorTable = async (req, res) => {
                         status: element.status,
                         infer_ai: element.infer_ai,
                         infer_doctor: element.infer_doctor,
+                        createdAt: element.createdAt
                     }
                 )
             }
@@ -122,14 +123,20 @@ const doctorEdit = async (req, res) => {
     return res.redirect("/doctor/table");
 };
 const doctorDelete = async (req, res) => {
+    const user = await Image.findAll({
+        where: { nameimage: req.params.nameimage }
+    });
     await Image.destroy({
         where: { nameimage: req.params.nameimage },
     });
-    const data = await Image.findAll();
-    // res.send("123");
-    return res.render(path.join(`${__dirname}/../views/doctor/table`), {
-        datas: data,
+    const image = await Image.findAll({
+        where: { idbenhnhan: user[0].idbenhnhan }
     });
+    if (!image.length)
+        await InforUser.destroy({
+            where: { idbenhnhan: user[0].idbenhnhan },
+        });
+    return res.redirect("/doctor/table");
 };
 const doctorCheck = async (req, res) => {
     const array = await req.params.array.split(",");
