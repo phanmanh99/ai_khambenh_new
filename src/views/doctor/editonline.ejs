@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Danh sách </title>
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+        <!-- Datatable -->
+        <link href="/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+        <!-- Custom Stylesheet -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="/css/zoom-img.css">
+    
+    </head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <%- include('layout/header'); %>
+        <!--**********************************
+            Header end
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <%- include('layout/sidebar'); %>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="row page-titles mx-0">
+                    <div class="col-sm-6 p-md-0">
+                        <div class="welcome-text">
+                            <h4>Danh sách</h4>
+                            <span class="ml-1">Danh sách</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)">Bệnh nhân</a></li>
+                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Danh sách</a></li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- row -->
+
+
+                <div class="row text-dark">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Danh sách</h4>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="table-responsive justify-content-center">
+                                    <table id="example" class="display" style="min-width: 845px">
+                                        <thead>
+                                            <tr>                                               
+                                                <th>Ảnh</th>
+                                                <th>Trạng thái</th>
+                                                <th>Kết luận của AI</th>
+                                                <th>Kết luận của bác sĩ</th>                                                
+                                                <th>Chỉnh sửa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(let key in datas) { %>
+                                            <tr>
+                                                <td>
+                                                    <img class="myImg" style="max-width: 6em;max-height: 6em;" onclick="zoom(this)" src="/assets/uploads/<%= datas[key].nameimage %>" >
+                                                </td>
+                                                <td><% if(datas[key].status == 0) {%>                            
+                                                    <span class="badge badge-danger"><h6>Chưa<br>chẩn đoán</h6></span>
+                                                    <%} else {%>
+                                                    <span class="badge badge-success"><h6>Đã<br>chẩn đoán</h6></span>
+                                                    <%}%>
+                                                </td>
+                                                <td>
+                                                    <%= datas[key].infer_ai == "1" ? "Bị viêm phổi" :
+                                                    "Bình thường" %>
+                                                  </td>
+                                                  <td><%= datas[key].infer_doctor == null ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "Bị viêm phổi" : "Bình thường") %></td>                                               
+                                                <td>
+                                                    <button class="edit" style="border: none; background: none;" value="<%= datas[key].nameimage %>" data-toggle="modal" data-target=".bd-example-modal-lg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
+                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z"/>
+                                                    </svg></button>                                                    
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>                                                
+                                                <th>Ảnh</th>
+                                                <th>Trạng thái</th>
+                                                <th>Kết luận của AI</th>
+                                                <th>Kết luận của bác sĩ</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <button type="button" class="btn btn-primary btn-lg btn-block" id="check" data-toggle="modal" data-target="#basicModal">Chẩn đoán</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="basicModal">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="spinner-border text-primary" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                      <div class="spinner-border text-secondary" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                      <div class="spinner-border text-success" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                      <div class="spinner-border text-danger" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                      <div class="spinner-border text-warning" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                      <div class="spinner-border text-info" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                      <div class="spinner-border text-light" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                      <div class="spinner-border text-dark" role="status">
+                                                        <span class="sr-only">Loading...</span>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="myModal" class="modal-img">
+                                        <span class="close">&times;</span>
+                                        <img class="modal-img-content" id="img01">
+                                        <div id="caption"></div>
+                                    </div>
+                                    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl" role="document">
+                                            <form class="form-valide" action="/doctor/updateonline" method="POST" enctype="multipart/form-data">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Thông tin chỉnh sửa </h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-xl-8">
+                                                        <input name="nameimage" id="val-nameimage" hidden>
+                                                        <label for="">Bác sĩ kết luận: </label>
+                                                        <select class="form-select" name="infer_doctor" aria-label="Default select example">                                                            
+                                                            <option value="0">Bình thường</option>
+                                                            <option value="1">Bị viêm phổi</option>
+                                                        </select>                                                        
+                                                    </div>
+                                                </div>                                                
+                                            </div>                                            
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                    <button type="submit" class="btn btn-primary" id="modalEdit">Chỉnh sửa</button>
+                                                </div>
+                                            </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <%- include('layout/footer'); %>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="/vendor/global/global.min.js"></script>
+    <script src="/js/quixnav-init.js"></script>
+    <script src="/js/custom.min.js"></script>
+    
+
+
+    <!-- Datatable -->
+    <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/js/plugins-init/datatables.init.js"></script>
+    <script src="/js/zoom-img.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".edit").click(function(){                
+                $("#val-nameimage")[0].value = this.value;
+            });
+        });
+    </script>
+
+</body>
+
+</html>

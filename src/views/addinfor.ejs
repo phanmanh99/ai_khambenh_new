@@ -54,7 +54,7 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="content-body">
+        <div class="content-body ">
             <div class="container-fluid">
                 <div class="row page-titles mx-0">
                     <div class="col-sm-6 p-md-0">
@@ -72,39 +72,80 @@
                 </div>
                 <!-- row -->
                 <div class="form-group text-dark">
-                    <label><h2>VUI LÒNG ĐIỀN ĐẦY ĐỦ THÔNG TIN ĐỂ SỬ DỤNG CHỨC NĂNG CỦA HỆ THỐNG!</h2></label>
+                    <h2  style="text-align: center;">VUI LÒNG ĐIỀN ĐẦY ĐỦ THÔNG TIN ĐỂ SỬ DỤNG CHỨC NĂNG CỦA HỆ THỐNG!</h2><br>
                 </div>
-                <form class="form-valide text-dark" action="" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label><strong>Họ và tên</strong></label>
-                        <input type="text" class="form-control" name="hoten" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label><strong>Địa chỉ</strong></label>
-                        <input type="text" class="form-control" name="diachi" required>
-                    </div>
-                    <div class="form-group">
-                        <label><strong>Số CMND</strong></label>
-                        <input type="text" class="form-control" name="cmnd" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label><strong>Số điện thoại</strong></label>
-                        <input type="text" class="form-control" name="sdt" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label><strong>Email</strong></label>
-                        <input type="email" class="form-control" name="email" placeholder="hello@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label><strong>Số BHYT</strong></label>
-                        <input type="text" class="form-control" name="bhyt" placeholder="" required>
-                    </div>
-                    <div class="form-group">
-                        <label><strong>Tiền sử bệnh lý</strong></label>
-                        <input type="text" class="form-control" name="tsbl" placeholder="" required>
-                    </div>
-                    <div class="text-center mt-4">
-                        <input type="submit" class="btn btn-primary btn-block" value="Gửi">
+                <form class="form-valide text-dark " action="" method="POST" enctype="multipart/form-data">
+                    <div class="row justify-content-center">                        
+                        <div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-hoten">Họ và tên
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-hoten" name="hoten" placeholder="" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-diachi">Địa chỉ
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-diachi" name="diachi" placeholder="" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-cmnd">Số CMND
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-cmnd" name="cmnd" placeholder="" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-sdt">Số điện thoại
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-sdt" name="sdt" placeholder="" required>
+                                </div>
+                            </div>
+                        
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-email">Email
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="email" class="form-control" id="val-email" name="email" placeholder="abc@gmail.com" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-bhyt">Số bảo hiểm y tế
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-bhyt" name="bhyt" placeholder="" required>
+                                </div>
+                            </div>
+                        </div><div class="col-xl-8">                                                      
+                            <div class="form-group row">
+                                <label class="col-lg-4 col-form-label" for="val-tsbl">Tiền sử bệnh
+                                    <span class="text-danger">*</span>
+                                </label>
+                                <div class="col-lg-6">
+                                    <input type="text" class="form-control" id="val-tsbl" name="tsbl" placeholder="" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <br><div class="form-group row">
+                        <div class="col-lg-8 ml-auto">
+                            <button type="submit" class="btn btn-primary" style="width: 5cm;" >Gửi thông tin</button>
+                        </div>
                     </div>
                 </form>
             </div>

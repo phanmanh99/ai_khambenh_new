@@ -19,7 +19,7 @@
     />
     <!-- Custom Stylesheet -->
     <link href="/css/style.css" rel="stylesheet" />
-    <style>
+    <style>      
       .hover {
         color: red;
         background-color: red !important;
@@ -96,7 +96,7 @@
                 <div class="card-header">
                   <h4 class="card-title">Danh sách</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                   <div class="table-responsive">
                     <table
                       id="example"
@@ -105,29 +105,37 @@
                     >
                       <thead>
                         <tr>
-                          <th>Số điện thoại</th>
+                          <th>Id bệnh nhân</th>
                           <th>Tên bệnh nhân</th>
+                          <th>Số bảo hiểm y tế</th>
                           <th>Ngày tham gia</th>
+                          <th>Lịch sử khám bệnh</th>
+                          <th>Cập nhật LSKB</th>                          
                         </tr>
                       </thead>
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td><%= datas[key].username %></td>
-                          <td><%= datas[key].username %></td>
-                          <!-- <td><%= datas[key].status == "1" ? "Bệnh viêm phổi" : "Không bị bệnh" %></td> -->
+                          <td><%= datas[key].idbenhnhan %></td>
+                          <td><%= datas[key].hoten %></td>
+                          <td><%= datas[key].sobhyt %></td>                          
                           <td>
                             <%= new
-                            Date(datas[key].createdAt).toLocaleDateString() %>
+                            Date(datas[key].createdAt).toLocaleDateString('en-GB') %>
                           </td>
+                          <td><a href="/doctor/timeline/<%= datas[key].idbenhnhan %>" >Xem lịch sử khám bệnh</a></td>
+                          <td><a href="/doctor/lichsukham/<%= datas[key].idbenhnhan %>" >Cập nhật LSKB</a></td>                          
                         </tr>
                         <% } %>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Số điện thoại</th>
+                          <th>Id bệnh nhân</th>
                           <th>Tên bệnh nhân</th>
+                          <th>Số bảo hiểm y tế</th>
                           <th>Ngày tham gia</th>
+                          <th>Lịch sử khám bệnh</th>
+                          <th>Cập nhật LSKB</th> 
                         </tr>
                       </tfoot>
                     </table>
@@ -173,7 +181,7 @@
     <!-- Datatable -->
     <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/js/plugins-init/datatables.init.js"></script>
-    <script>
+    <!-- <script>
       window.onload = () => {
         table.rows().every(function () {
           this.nodes().to$().removeClass("selected");
@@ -201,7 +209,7 @@
         table.rows().every(function () {
           this.nodes().to$().removeClass("hover");
         });
-      };
+      }; -->
     </script>
   </body>
 </html>

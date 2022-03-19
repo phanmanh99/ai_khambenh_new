@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       donthuoc: {
         type: DataTypes.STRING,
+      },
+      ngaykham: {
+        type: DataTypes.STRING,
       }
     });
   

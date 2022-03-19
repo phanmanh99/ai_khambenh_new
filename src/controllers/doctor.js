@@ -26,11 +26,86 @@ const doctorForm = (req, res) => {
     return res.render(path.join(`${__dirname}/../views/doctor/form`));
 };
 const doctorTable = async (req, res) => {
-    const data = await Image.findAll();
+    const inforUser = await InforUser.findAll({
+        where: {
+            username: null,
+            createby: req.session.User.idbacsi
+        },
+    });
+    const image = await Image.findAll({
+        where: {
+            idbacsi: req.session.User.idbacsi,
+            inforimage: 1
+        },
+    });
+
+    const datas = [];
+
+    for (const element of image) {
+        for (const element2 of inforUser) {
+            if (element.idbenhnhan == element2.idbenhnhan) {
+                datas.push(
+                    {
+                        hoten: element2.hoten,
+                        nameimage: element.nameimage,
+                        status: element.status,
+                        infer_ai: element.infer_ai,
+                        infer_doctor: element.infer_doctor,
+                        createdAt: element.createdAt
+                    }
+                )
+            }
+        }
+    }
     return res.render(path.join(`${__dirname}/../views/doctor/table`), {
-        datas: data,
+        datas: datas
     });
 };
+const getDoctorHistory = async (req, res) => {
+    console.log(req.params.idbenhnhan)
+    const data = {idbacsi: req.session.User.idbacsi,
+    idbenhnhan: req.params.idbenhnhan}
+    return res.render(path.join(`${__dirname}/../views/doctor/lichsukham`), {
+        datas: data
+    });
+};
+
+const postDoctorHistory = async (req, res) => {
+    console.log(req.files);
+    console.log(req.params.idbenhnhan);
+    console.log(req.params.idbenhnhan);
+    const khambenh = await KhamBenh.findAll({
+        where: {idbacsi: req.body["idbacsi"],
+        idbenhnhan: req.body["idbenhnhan"], }
+    });
+    if (!khambenh.length){
+        await KhamBenh.create({
+            idbacsi: req.body["idbacsi"],
+            idbenhnhan: req.body["idbenhnhan"],
+        });
+    }
+    const khambenh02 = await KhamBenh.findAll({
+        where: {idbacsi: req.body["idbacsi"],
+        idbenhnhan: req.body["idbenhnhan"], }
+    });
+    try {
+        for (const iterator of req.files) {
+            await ChiTietKham.create({                
+                idkhambenh: khambenh02[0].idkhambenh,
+                nameimage: iterator.filename,
+                comment_doctor: req.body["comment_doctor"],
+                mucdo: req.body["mucdo"],
+                donthuoc: req.body["donthuoc"],
+                ngaykham: req.body["ngaykham"]
+            });
+        }
+    } catch (e) {
+        console.log(e.stderr.toString());
+    }
+    
+    req.session.User.infor = 1
+    return res.redirect("/doctor/tableuser");
+  };
 const doctorEdit = async (req, res) => {
     // console.log(req);
     // await Admins.create({
@@ -40,23 +115,28 @@ const doctorEdit = async (req, res) => {
     // })
     let data = {};
     if (req.file) data.nameimage = req.file.filename;
-    if (req.body.username) data.name = req.body.username;
     if (req.body.infer_doctor) data.infer_doctor = req.body.infer_doctor;
     console.log(data);
     await Image.update(data, {
-        where: { id: req.body.id },
+        where: { nameimage: req.body.nameimage },
     });
     return res.redirect("/doctor/table");
 };
 const doctorDelete = async (req, res) => {
+    const user = await Image.findAll({
+        where: { nameimage: req.params.nameimage }
+    });
     await Image.destroy({
-        where: { id: req.params.id },
+        where: { nameimage: req.params.nameimage },
     });
-    const data = await Image.findAll();
-    // res.send("123");
-    return res.render(path.join(`${__dirname}/../views/doctor/table`), {
-        datas: data,
+    const image = await Image.findAll({
+        where: { idbenhnhan: user[0].idbenhnhan }
     });
+    if (!image.length)
+        await InforUser.destroy({
+            where: { idbenhnhan: user[0].idbenhnhan },
+        });
+    return res.redirect("/doctor/table");
 };
 const doctorCheck = async (req, res) => {
     const array = await req.params.array.split(",");
@@ -88,20 +168,83 @@ const doctorCheck = async (req, res) => {
     return res.redirect(`back`);
 };
 const doctorTableUser = async (req, res) => {
-    const data = await Account.findAll({
+    const data = await InforUser.findAll({
         where: {
-            role: 2,
+            createby: req.session.User.idbacsi,
         },
     });
     return res.render(path.join(`${__dirname}/../views/doctor/tableuser`), {
         datas: data,
     });
 };
-const doctorUser = async (req, res) => {
-    phone = req.params.phone;
+
+const doctorTableUserOnline = async (req, res) => {
+    const data = await InforUser.findAll({
+        where: {
+            createby: null,
+        },
+    });
+    return res.render(path.join(`${__dirname}/../views/doctor/tableuseronline`), {
+        datas: data,
+    });
+};
+const doctorEditOnline = async (req, res) => {
     const data = await Image.findAll({
         where: {
-            phone: phone,
+            idbenhnhan: req.params.idbenhnhan,
+        },
+    });
+    return res.render(path.join(`${__dirname}/../views/doctor/editonline`), {
+        datas: data
+    });
+};
+
+const doctorUpdateOnline = async (req, res) => {
+    console.log(req.session.User.idbacsi)
+    console.log(req.body.infer_doctor)
+    console.log(req.body.nameimage)
+    
+    let data = {};
+    if (req.body.infer_doctor) {
+        data.idbacsi = req.session.User.idbacsi;
+        data.infer_doctor = req.body.infer_doctor;
+    }
+    console.log(data);
+    await Image.update(data, {
+        where: { nameimage: req.body.nameimage },
+    });
+    return res.redirect("/doctor/tableuseronline");
+};
+
+const doctorTimeline = async (req, res) => {
+    console.log(req.params.idbenhnhan);
+    idbenhnhan = req.params.idbenhnhan;
+    const khambenh = await KhamBenh.findAll({
+        where: {
+            idbenhnhan: idbenhnhan,
+        },
+    });
+    if(khambenh.length){
+        const idkhambenh = khambenh[0].idkhambenh;
+        const data = await ChiTietKham.findAll({
+            where: {
+                idkhambenh: idkhambenh,
+            },
+        });
+        return res.render(path.join(`${__dirname}/../views/doctor/timeline`), { //TIMELINE
+            datas: data,
+        });
+    }
+    else{
+        return res.redirect("/doctor/tableuser");
+    }
+};
+
+const doctorUser = async (req, res) => {
+    idbenhnhan = req.params.idbenhnhan;
+    const data = await Image.findAll({
+        where: {
+            idbenhnhan: idbenhnhan,
         },
     });
     return res.render(path.join(`${__dirname}/../views/doctor/imageusers`), {
@@ -110,18 +253,16 @@ const doctorUser = async (req, res) => {
 };
 const doctorSendMessenger = async (req, res) => {
     console.log(req.session.User);
-    console.log(req.params.phone);
-    console.log(req.body);
+    console.log(req.body.messenger);
     await Messengers.create({
-        username: req.params.phone,
-        namedocter: req.session.User.username,
-        messenger: req.body.messenger,
+        idbacsi: req.session.User.idbacsi,
+        idbenhnhan: req.params.idbenhnhan,        
+        messengers: req.body.messenger,
         status: 0,
-        role: 2,
     });
-    const data = await UserImage.findAll({
+    const data = await Image.findAll({
         where: {
-            // phone: phone,
+            idbenhnhan: req.params.idbenhnhan,
         },
     });
     return res.render(path.join(`${__dirname}/../views/doctor/imageusers`), {
@@ -129,7 +270,11 @@ const doctorSendMessenger = async (req, res) => {
     });
 };
 const doctorMessengers = async (req, res) => {
-    const data = await Users.findAll();
+    const data = await InforUser.findAll({
+        where: {
+            createby: null
+        },
+    });
     return res.render(path.join(`${__dirname}/../views/doctor/usermessengers`), {
         datas: data,
     });
@@ -137,7 +282,7 @@ const doctorMessengers = async (req, res) => {
 const doctorMessenger = async (req, res) => {
     const data = await Messengers.findAll({
         where: {
-            username: req.params.phone,
+            idbenhnhan: req.params.idbenhnhan,
         },
     });
     console.log(data);
@@ -197,9 +342,15 @@ module.exports = {
     getDoctorForm: doctorForm,
     getDoctorTable: doctorTable,
     getDoctorCheck: doctorCheck,
+    getDoctorHistory: getDoctorHistory,
+    postDoctorHistory: postDoctorHistory,
+    getDoctorTimeline: doctorTimeline,
+    getDoctorEditOnline: doctorEditOnline,
+    getDoctorUpdateOnline: doctorUpdateOnline,
     postDoctorEdit: doctorEdit,
     getDoctorDelete: doctorDelete,
     getDoctorTableUser: doctorTableUser,
+    getDoctorTableUserOnline: doctorTableUserOnline,
     getDoctorUser: doctorUser,
     postDoctorSendMessenger: doctorSendMessenger,
     getDoctorMessengers: doctorMessengers,

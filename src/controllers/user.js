@@ -29,7 +29,6 @@ const getTimeline = async (req, res) => {
 const homeUser = async (req, res) => {
     const messenger = await Messengers.findAll({
         where: {
-
             idbenhnhan: req.session.User.username,
             status: 0,
         },
@@ -55,8 +54,13 @@ const postCheckInfor = async (req, res) => {
     email: req.body["email"],
     sobhyt: req.body["bhyt"],
     tiensubenh: req.body["tsbl"],
+    createby: null
   });
-  req.session.User.id = infor.idbenhnhan;
+  const users = await InforUser.findAll({
+    where: { username: req.session.User.username },
+});
+  req.session.User.infor = 1;
+  req.session.User.idbenhnhan = users[0].idbenhnhan;
   return res.redirect("/form");
 };
 
@@ -71,25 +75,36 @@ const postLogin = async (req, res) => {
     if (users.length) {
         if (users[0].password == md5(req.body.password)) {
             req.session.User = {
-                id: 0,
+                idbenhnhan: 0,
+                idbacsi: 0,
+                idkhambenh: 0,
                 username: users[0].username,
                 role: users[0].role,
                 infor: 0,
             };
-            const infor = await InforUser.findAll({
+            const inforuser = await InforUser.findAll({
                 where: { username: req.body.username },
             });
-            if (infor.length) {
+            if (inforuser.length) {
                 //return res.redirect("/");
                 req.session.User.infor = 1;
-                req.session.User.id = infor.idbenhnhan;
+                req.session.User.idbenhnhan = inforuser[0].idbenhnhan;
+                console.log(req.session.User.idbenhnhan)
             }
             if (users[0].role == 2){
+                console.log(req.session.User.idbenhnhan);
                 return res.redirect("/");
             }
-            else{
+            else if (users[0].role == 1){
+                const infordoctor = await InforDoctor.findAll({
+                    where: { username: req.body.username },
+                });
+                req.session.User.idbacsi = infordoctor[0].idbacsi;
                 return res.redirect("/doctor");
-            }    
+            }
+            else {
+                return res.redirect("/admin");
+            }  
         }
     }
     return res.render(path.join(`${__dirname}/../views/login`), {
@@ -119,9 +134,10 @@ const postRegister = async (req, res) => {
     }
 };
 const form = async (req, res) => {
+    console.log(req.session.User.idbenhnhan);
     const messenger = await Messengers.findAll({
         where: {
-            idbenhnhan: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
             status: 0,
         },
     });
@@ -140,9 +156,13 @@ const postForm = async (req, res) => {
             ]);
             dataToSend = python.toString();
             await Image.create({
-                phone: req.session.User.username,
+                idbacsi: null,
+                idbenhnhan: req.session.User.idbenhnhan,
                 nameimage: iterator.filename,
+                status: 1,
                 infer_ai: parseInt(dataToSend, 10),
+                infer_doctor: null,
+                inforimage: 2
             });
         }
     } catch (e) {
@@ -152,32 +172,61 @@ const postForm = async (req, res) => {
     // return res.render(path.join(`${__dirname}/../views/form`));
 };
 const table = async (req, res) => {
+    console.log(req.session.User.idbenhnhan);
     const messenger = await Messengers.findAll({
         where: {
-            idbenhnhan: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
             status: 0,
         },
     });
-    const data = await UserImage.findAll({
+    const image = await Image.findAll({
         where: {
-            phone: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
         },
     });
+
+    const inforUser = await InforUser.findAll({
+        where: {
+            idbenhnhan: req.session.User.idbenhnhan
+        },
+    });
+
+    const datas = [];
+
+    for (const element of image) {
+        for (const element2 of inforUser) {
+            if (element.idbenhnhan == element2.idbenhnhan) {
+                datas.push(
+                    {   
+                        idimage: element.idimage,
+                        hoten: element2.hoten,
+                        idbacsi: element.idbacsi,
+                        nameimage: element.nameimage,
+                        status: element.status,
+                        infer_ai: element.infer_ai,
+                        infer_doctor: element.infer_doctor,
+                        createdAt: element.createdAt
+                    }
+                )
+            }
+        }
+    }
     return res.render(path.join(`${__dirname}/../views/table`), {
-        datas: data,
+        datas: datas,
         messenger: messenger,
     });
 };
 const userDelete = async (req, res) => {
-    await UserImage.destroy({
-        where: { id: req.params.id },
+    await Image.destroy({
+        where: { idimage: req.params.id },
     });
     return res.redirect("back");
 };
 const Messenger = async (req, res) => {
+    console.log(req.session.User.idbenhnhan)
     const data = await Messengers.findAll({
         where: {
-            idbenhnhan: req.session.User.username,
+            idbenhnhan: req.session.User.idbenhnhan,
         },
     });
     await Messengers.update({ status: 1 }, {

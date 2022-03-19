@@ -29,7 +29,7 @@ let routes = (app) => {
     userController.postForm
   );
   router.get("/checkinfor", userController.getCheckInfor);
-  router.post("/checkinfor", upload.single("file"), isAdmin.isUser, userController.postCheckInfor);
+  router.post("/checkinfor", upload.single("file"), userController.postCheckInfor);
   router.get("/delete/:id", isAdmin.isUser, userController.getUserDelete);
   router.get("/table", isAdmin.isUser, userController.getTable);
   router.get("/messenger", isAdmin.isUser, userController.getMessenger);
@@ -58,7 +58,7 @@ let routes = (app) => {
   );
   router.get("/admin/tableUser", isAdmin.isAdmin, adminController.getTableUser);
   router.get(
-    "/admin/deleteUser/:id",
+    "/admin/deleteUser/:username",
     isAdmin.isAdmin,
     adminController.getDeleteUser
   );
@@ -78,7 +78,7 @@ let routes = (app) => {
     adminController.getTableDoctor
   );
   router.get(
-    "/admin/deleteDoctor/:id",
+    "/admin/deleteDoctor/:username",
     isAdmin.isAdmin,
     adminController.getDeleteDoctor
   );
@@ -106,33 +106,57 @@ let routes = (app) => {
   router.get("/doctor/", isAdmin.isDoctor, doctorController.getHoneDoctor);
   router.get("/doctor/form", isAdmin.isDoctor, doctorController.getDoctorForm);
   router.get("/doctor/table", isAdmin.isDoctor, doctorController.getDoctorTable);
+  router.get("/doctor/lichsukham/:idbenhnhan", isAdmin.isDoctor, doctorController.getDoctorHistory);
+  router.post("/doctor/lichsukham/update/:idbenhnhan",upload.array("file", 10),isAdmin.isDoctor, doctorController.postDoctorHistory);
+  router.get(
+    "/doctor/timeline/:idbenhnhan",
+    isAdmin.isDoctor,
+    doctorController.getDoctorTimeline
+  );
+  router.get(
+    "/doctor/editonline/:idbenhnhan",
+    isAdmin.isDoctor,
+    doctorController.getDoctorEditOnline
+  );
+  router.post(
+    "/doctor/updateonline/",
+    upload.single("file"),
+    isAdmin.isDoctor,
+    doctorController.getDoctorUpdateOnline
+  );
   router.get(
     "/doctor/check/:array",
     isAdmin.isDoctor,
     doctorController.getDoctorCheck
   );
   router.post(
-    "/doctor/edit",
+    "/doctor/edit/",
     upload.single("file"),
     doctorController.postDoctorEdit
   );
   router.get(
-    "/doctor/delete/:id",
+    "/doctor/delete/:nameimage",
     isAdmin.isDoctor,
     doctorController.getDoctorDelete
   );
   router.get(
+    "/doctor/tableuseronline",
+    isAdmin.isDoctor,
+    doctorController.getDoctorTableUserOnline
+  );
+  router.get(
     "/doctor/tableuser",
+    upload.single("file"),
     isAdmin.isDoctor,
     doctorController.getDoctorTableUser
   );
   router.get(
-    "/doctor/user/:phone",
+    "/doctor/user/:idbenhnhan",
     isAdmin.isDoctor,
     doctorController.getDoctorUser
   );
   router.post(
-    "/doctor/user/send/:phone",
+    "/doctor/user/send/:idbenhnhan",
     upload.single("file"),
     isAdmin.isDoctor,
     doctorController.postDoctorSendMessenger
@@ -143,7 +167,7 @@ let routes = (app) => {
     doctorController.getDoctorMessengers
   );
   router.get(
-    "/doctor/messenger/:phone",
+    "/doctor/messenger/:idbenhnhan",
     isAdmin.isDoctor,
     doctorController.getDoctorMessenger
   );

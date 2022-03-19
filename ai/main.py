@@ -2,6 +2,7 @@ from abc import abstractmethod
 import tensorflow
 import numpy as np
 import sys
+import cv2
 
 class Detector(object):
     @abstractmethod
@@ -55,19 +56,23 @@ class KerasRankDetector(RankDetector):
 
 
 def predictImg(image_path):
-    height, width = 224, 224
-    rank_detector = KerasRankDetector("modelvgg16.h5")
+    height, width = 240, 430
+    rank_detector = KerasRankDetector("./ai/chest_modelvgg16_chest14_2412.h5")
     result = rank_detector.predict_file(image_path, target_size=(height, width))
     # Biến idx là biến cho kết quả bằng 0 hoặc 1. Nếu = 0 là Bình thường, = 1 là bị viêm phổi
     idx = np.argmax(result[0])
     # return idx để lưu vào data
     return idx
 
-
 # đường dẫn ảnh
 image_path = "resources/static/assets/uploads/" + sys.argv[1]
+img = cv2.imread(image_path)
+x,y,z = img.shape
+x_new = int(0.1953*x)
+y_new = int(0.1042*y)
+img_crop = img[x_new : (x - x_new), y_new : (y - y_new)]
+gray = cv2.cvtColor(img_crop, cv2.COLOR_BGR2GRAY)
+cv2.imwrite(f'./ai/imgtotest.jpg',gray)
 # Gọi hàm predictImg
-
 # print(image_path)
-
-print(predictImg(image_path))
+print(predictImg(f'./ai/imgtotest.jpg'))

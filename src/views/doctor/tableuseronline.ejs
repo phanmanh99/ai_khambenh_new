@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Danh sách</title>
+    <!-- Favicon icon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon.png"
+    />
+    <!-- Datatable -->
+    <link
+      href="/vendor/datatables/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <style>
+      .hover {
+        color: red;
+        background-color: red !important;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+      <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+      <!--**********************************
+            Header start
+        ***********************************-->
+      <%- include('layout/header'); %>
+      <!--**********************************
+            Header end
+        ***********************************-->
+
+      <!--**********************************
+            Sidebar start
+        ***********************************-->
+      <%- include('layout/sidebar'); %>
+      <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+      <!--**********************************
+            Content body start
+        ***********************************-->
+      <div class="content-body">
+        <div class="container-fluid">
+          <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+              <div class="welcome-text">
+                <h4>Danh sách</h4>
+                <span class="ml-1">Danh sách</span>
+              </div>
+            </div>
+            <div
+              class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex"
+            >
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="javascript:void(0)">Bệnh nhân</a>
+                </li>
+                <li class="breadcrumb-item active">
+                  <a href="javascript:void(0)">Danh sách</a>
+                </li>
+              </ol>
+            </div>
+          </div>
+          <!-- row -->
+
+          <div class="row text-dark">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Danh sách</h4>
+                </div>
+                <div class="card-body text-center">
+                  <div class="table-responsive">
+                    <table
+                      id="example"
+                      class="display"
+                      style="min-width: 845px"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Id bệnh nhân</th>
+                          <th>Tên bệnh nhân</th>
+                          <th>Số bảo hiểm y tế</th>
+                          <th>Ngày tham gia</th>
+                          <th>Tin nhắn</th>
+                          <th>Lịch sử chẩn đoán bệnh bằng AI</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(let key in datas) { %>
+                        <tr>
+                          <td><%= datas[key].idbenhnhan %></td>
+                          <td><%= datas[key].hoten %></td>
+                          <td><%= datas[key].sobhyt %></td>                          
+                          <td>
+                            <%= new
+                            Date(datas[key].createdAt).toLocaleDateString('en-GB') %>
+                          </td>
+                          <td><a href="/doctor/user/<%= datas[key].idbenhnhan %>">Gửi tin nhắn</a></td>
+                          <td><a href="/doctor/editonline/<%= datas[key].idbenhnhan %>">Xem lịch sử </a></td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Id bệnh nhân</th>
+                          <th>Tên bệnh nhân</th>
+                          <th>Số bảo hiểm y tế</th>
+                          <th>Ngày tham gia</th>
+                          <th>Tin nhắn</th>
+                          <th>Lịch sử chẩn đoán bệnh bằng AI</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--**********************************
+            Content body end
+        ***********************************-->
+
+      <!--**********************************
+            Footer start
+        ***********************************-->
+      <%- include('layout/footer'); %>
+      <!--**********************************
+            Footer end
+        ***********************************-->
+
+      <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+      <!--**********************************
+           Support ticket button end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="/vendor/global/global.min.js"></script>
+    <script src="/js/quixnav-init.js"></script>
+    <script src="/js/custom.min.js"></script>
+
+    <!-- Datatable -->
+    <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/js/plugins-init/datatables.init.js"></script>
+    <!-- <script>
+      window.onload = () => {
+        table.rows().every(function () {
+          this.nodes().to$().removeClass("selected");
+        });
+        table.on("click", "tbody tr", function () {
+          var $row = table.row(this).nodes().to$();
+          console.log($row[0].getElementsByTagName('td')[0].innerText);
+          window.location.href = window.location.origin + "/doctor/user/" + $row[0].getElementsByTagName('td')[0].innerText;
+        });
+
+        table.rows().every(function () {
+          this.nodes().to$().removeClass("selected");
+        });
+
+        table.on("mouseover", "tbody tr", function () {
+          var $row = table.row(this).nodes().to$();
+          $row.addClass("hover");
+        });
+
+        table.on("mouseout", "tbody tr", function () {
+          var $row = table.row(this).nodes().to$();
+          $row.removeClass("hover");
+        });
+
+        table.rows().every(function () {
+          this.nodes().to$().removeClass("hover");
+        });
+      }; -->
+    </script>
+  </body>
+</html>

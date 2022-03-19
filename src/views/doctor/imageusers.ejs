@@ -90,7 +90,7 @@
                 <div class="card-header">
                   <h4 class="card-title">Danh sách</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body text-center">
                   <div class="table-responsive">
                     <table
                       id="example"
@@ -99,15 +99,17 @@
                     >
                       <thead>
                         <tr>
-                          <th>Số điện thoại</th>
+                          <th>Họ tên bệnh nhân</th>
                           <th>Ảnh</th>
+                          <th>AI chẩn đoán</th>
+                          <th>Bác sĩ chẩn đoán</th>
                           <th>Ngày tạo</th>
                         </tr>
                       </thead>
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td><%= datas[key].phone %></td>
+                          <td>        </td> <!--Tên bệnh nhân. lấy thông tin từ bảng inforuser where image.idbenhnhan == inforuser.idbenhnhan-->
                           <td>
                             <img
                               class="myImg"
@@ -116,14 +118,18 @@
                               src="/assets/uploads/<%= datas[key].nameimage %>"
                             />
                           </td>
+                          <td><%= datas[key].infer_ai %></td>
+                          <td><%= datas[key].infer_doctor %></td>
                           <td><%= new Date(datas[key].createdAt).toLocaleDateString() %></td>
                         </tr>
                         <% } %>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Số điện thoại</th>
+                          <th>Họ tên bệnh nhân</th>
                           <th>Ảnh</th>
+                          <th>AI chẩn đoán</th>
+                          <th>Bác sĩ chẩn đoán</th>
                           <th>Ngày tạo</th>
                         </tr>
                       </tfoot>
@@ -131,7 +137,7 @@
                     <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" <% if(!datas.length) { %> disabled <% } %> data-target=".bd-example-modal-lg">Gửi tin nhắn cho bệnh nhân</button>
                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-xl" role="document">
-                            <form class="form-valide" action="/doctor/user/send<% if(datas != 'undefined' && datas != null && datas.length != 0){%><%= '/' + datas[0].phone%><%}%>" method="POST" enctype="multipart/form-data">
+                            <form class="form-valide" action="/doctor/user/send<% if(datas != 'undefined' && datas != null && datas.length != 0){%><%= '/' + datas[0].idbenhnhan%><%}%>" method="POST" enctype="multipart/form-data">
                             <div class="modal-content">
                               <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Thông tin chỉnh sửa </h5>
