@@ -99,7 +99,6 @@
                     >
                       <thead>
                         <tr>
-                          <th>Họ tên bệnh nhân</th>
                           <th>Ảnh</th>
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>
@@ -109,8 +108,7 @@
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td>        </td> <!--Tên bệnh nhân. lấy thông tin từ bảng inforuser where image.idbenhnhan == inforuser.idbenhnhan-->
-                          <td>
+                            <td>
                             <img
                               class="myImg"
                               style="max-width: 6em; max-height: 6em"
@@ -118,15 +116,14 @@
                               src="/assets/uploads/<%= datas[key].nameimage %>"
                             />
                           </td>
-                          <td><%= datas[key].infer_ai %></td>
-                          <td><%= datas[key].infer_doctor %></td>
+                          <<td><%= datas[key].infer_ai == null ? "Bác sĩ chưa xác nhận" : (datas[key].infer_ai == "1" ? "Bị viêm phổi" : "Bình thường") %></td>
+                          <td><%= datas[key].infer_doctor == null ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "Bị viêm phổi" : "Bình thường") %></td>
                           <td><%= new Date(datas[key].createdAt).toLocaleDateString() %></td>
                         </tr>
                         <% } %>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Họ tên bệnh nhân</th>
                           <th>Ảnh</th>
                           <th>AI chẩn đoán</th>
                           <th>Bác sĩ chẩn đoán</th>

@@ -190,12 +190,6 @@ const table = async (req, res) => {
             idbenhnhan: req.session.User.idbenhnhan
         },
     });
-
-    const inforDoctor = await InforDoctor.findAll({
-        where: {
-            idbacsi: image[0].idbacsi
-        },
-    });
     
     const datas = [];
 

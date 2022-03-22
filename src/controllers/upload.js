@@ -42,6 +42,7 @@ const uploadFiles = async (req, res) => {
       idbenhnhan: inforUser[0].idbenhnhan
     });
     KhamBenh.bulkCreate(arrkhambenh)
+    
     arraccount.push({
       username: req.body.bhyt,
       password: md5("123456"),
