@@ -23,13 +23,20 @@
                 <div class="send">
                     <textarea placeholder="Type message.." name="msg" id="msg" required></textarea>
     
-                    <button type="submit" class="btn" onclick="send()">
+                    <button id="myBtn" type="submit" class="btn" onclick="send()">
                         <img src="./images/send.png" alt="" width="40px" height="40px">
                     </button>
                 </div>
             </div>
             </div>
             <script>
+                var input = document.getElementById("msg");
+                    input.addEventListener("keyup", function(event) {
+                    if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("myBtn").click();
+                    }
+                });
                 async function send() {
                     myBody = document.getElementById("msg").value;
                     document.getElementById("messager").innerHTML += `<p>Bạn: ${myBody}</p>`;

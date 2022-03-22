@@ -58,7 +58,7 @@
             Content body start
         ***********************************-->
         <div class="timeline-container" id="timeline-1" style="background-image: url(/images/truongphan.jpg);">
-            <div class="timeline-header">
+            <div class="timeline-header" style="text-align: center;">
               <h2 class="timeline-header__title">Lịch sử khám bệnh</h2>
               <h3 class="timeline-header__subtitle">PHAN BOI CHAU</h3>
             </div>
@@ -67,7 +67,7 @@
                     
               <div class="timeline-item" data-text="Lời khuyên: <%= datas[key].comment_doctor %>">                  
                 <div class="timeline__content"><img class="timeline__img" src="/assets/uploads/<%= datas[key].nameimage %>"/>
-                  <h2 class="timeline__content-title"><%= new Date(datas[key].createdAt).toLocaleDateString() %></h2>
+                  <h4 class="timeline__content-title" style="color: black;"><%= new Date(datas[key].createdAt).toLocaleDateString('en-GB') %></h4>
                   <p class="timeline__content-desc"><b><u>Mức độ:</u></b> 
                     <%= datas[key].mucdo %>
                     <%if (datas[key].mucdo == 0){%>

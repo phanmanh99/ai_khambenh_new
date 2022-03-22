@@ -12,9 +12,9 @@ from tensorflow.keras import optimizers
 import tensorflow as tf
 from datetime import datetime
 
-input_dir = "resources/static/assets/uploads/" # đường dẫn chứa 2 foder train và test (m)
-train_dir = input_dir +"traning/" #link foder mẹ chứa 2 foder 0 vs 1 (0: NORMAL(bình thường); 1: PNEUMONIA(bị bệnh))
-test_dir = input_dir +"test/" #tương tự train_dir nhưng để test, train_dir để train (update ảnh tại train_dir)
+input_dir = "resources/static/assets/datamodel/" # đường dẫn chứa 2 foder train và test (m)
+train_dir = input_dir +"training/" #link foder mẹ chứa 2 foder 0 vs 1 (0: NORMAL(bình thường); 1: PNEUMONIA(bị bệnh))
+#test_dir = input_dir +"test/" #tương tự train_dir nhưng để test, train_dir để train (update ảnh tại train_dir)
 
 # train_dir = "D:/chest_rsna/images"
 # train_dir = "D:\XQuangPhoi\X-QUANG PHOI TRAIN"
@@ -55,7 +55,7 @@ test = train_datagen.flow_from_directory(
 reduce_lr = ReduceLROnPlateau(monitor="val_loss", factor=0.1, patience=3, verbose=1)
 
 early_stopping = EarlyStopping(
-    monitor="val_loss   ", min_delta=0, patience=10, verbose=1
+    monitor="val_loss", min_delta=0, patience=10, verbose=1
 )
 
 model = Sequential()
