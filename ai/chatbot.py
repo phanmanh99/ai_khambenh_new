@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import nltk
+nltk.download('punkt')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 from nltk.stem import WordNetLemmatizer
 import pickle
 import numpy as np

@@ -113,9 +113,8 @@
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td><%= datas[key].namedocter %></td>
+                          <td><%= datas[key].hotenbs %></td>
                           <td><%= datas[key].messengers %></td>
-                          <!-- <td><%= datas[key].status == "1" ? "Bệnh viêm phổi" : "Không bị bệnh" %></td> -->
                           <td>
                             <%= new
                             Date(datas[key].createdAt).toLocaleDateString() %>

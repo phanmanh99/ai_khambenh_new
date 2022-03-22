@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Danh sách</title>
+    <!-- Favicon icon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/images/favicon.png"
+    />
+    <!-- Datatable -->
+    <link
+      href="/vendor/datatables/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom Stylesheet -->
+    <link href="/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/zoom-img.css" />
+  </head>
+
+  <body>
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+      <div class="sk-three-bounce">
+        <div class="sk-child sk-bounce1"></div>
+        <div class="sk-child sk-bounce2"></div>
+        <div class="sk-child sk-bounce3"></div>
+      </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+      <!--**********************************
+            Header start
+        ***********************************-->
+      <%- include('layout/header'); %>
+      <!--**********************************
+            Header end
+        ***********************************-->
+
+      <!--**********************************
+            Sidebar start
+        ***********************************-->
+      <%- include('layout/sidebar'); %>
+      <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+      <!--**********************************
+            Content body start
+        ***********************************-->
+      <div class="content-body">
+        <div class="container-fluid">
+          <div class="row page-titles mx-0">
+            <div class="col-sm-6 p-md-0">
+              <div class="welcome-text">
+                <h4>Danh sách</h4>
+                <span class="ml-1">Danh sách</span>
+              </div>
+            </div>
+            <div
+              class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex"
+            >
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="javascript:void(0)">Người dùng</a>
+                </li>
+                <li class="breadcrumb-item active">
+                  <a href="javascript:void(0)">Danh sách</a>
+                </li>
+              </ol>
+            </div>
+          </div>
+          <!-- row -->
+
+          <div class="row text-dark">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Danh sách</h4>
+                </div>
+                <div class="card-body text-center">
+                  <div class="table-responsive">
+                    <table
+                      id="example"
+                      class="display"
+                      style="min-width: 845px"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Họ tên bệnh nhân</th>
+                          <th>ID bác sĩ chẩn đoán</th>
+                          <th>Ảnh</th>
+                          <th>Tình trạng</th>
+                          <th>AI chẩn đoán</th>
+                          <th>Bác sĩ chẩn đoán</th>
+                          <th>Ngày chẩn đoán</th>
+                          <th>Xóa</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% for(let key in datas) { %>
+                        <tr>
+                          <td><%= datas[key].hoten %></td>   <!--Tên bệnh nhân. lấy thông tin từ bảng inforuser where image.idbenhnhan == inforuser.idbenhnhan-->                         
+                          <td><%= !datas[key].idbacsi ? "Bác sĩ chưa xác nhận" : (datas[key].idbacsi) %></td>
+                          <td>
+                            <img
+                              class="myImg"
+                              style="max-width: 6em; max-height: 6em"
+                              onclick="zoom(this)"
+                              src="/assets/uploads/<%= datas[key].nameimage %>"
+                            />
+                          </td>
+                          <td><% if(datas[key].status == 0) {%>                            
+                            <span class="badge badge-danger"><h6>Chưa<br>chẩn đoán</h6></span>
+                            <%} else {%>
+                            <span class="badge badge-success"><h6>Đã<br>chẩn đoán</h6></span>
+                            <%}%>
+                        </td>
+                          <td>
+                            <%= datas[key].infer_ai == null ? "Bác sĩ chưa xác nhận" : (datas[key].infer_ai == "1" ? "Bị viêm phổi" : "Bình thường") %>
+                          </td>
+                          <td><%= datas[key].infer_doctor == null ? "Bác sĩ chưa xác nhận" : (datas[key].infer_doctor == "1" ? "Bị viêm phổi" : "Bình thường") %></td>
+                          <td>
+                            <%= new
+                            Date(datas[key].createdAt).toLocaleDateString('en-GB') %>
+                          </td>
+                          <td>                            
+                            <button
+                              class="delete"
+                              style="border: none; background: none"
+                              value="<%= datas[key].idimage %>"
+                            >
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-trash"
+                                viewBox="0 0 16 16"
+                              >
+                                <path
+                                  d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                                />
+                                <path
+                                  fill-rule="evenodd"
+                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                                />
+                              </svg>
+                            </button>
+                          </td>
+                        </tr>
+                        <% } %>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th>Họ tên bệnh nhân</th>
+                          <th>ID bác sĩ chẩn đoán</th>
+                          <th>Ảnh</th>
+                          <th>Tình trạng</th>
+                          <th>AI chẩn đoán</th>
+                          <th>Bác sĩ chẩn đoán</th>
+                          <th>Ngày chẩn đoán</th>
+                          <th>Xóa</th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="myModal" class="modal-img">
+        <span class="close">&times;</span>
+        <img class="modal-img-content" id="img01" />
+        <div id="caption"></div>
+      </div>
+      <!--**********************************
+            Content body end
+        ***********************************-->
+
+      <!--**********************************
+            Footer start
+        ***********************************-->
+      <%- include('layout/footer'); %>
+      <!--**********************************
+            Footer end
+        ***********************************-->
+
+      <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+      <!--**********************************
+           Support ticket button end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="/vendor/global/global.min.js"></script>
+    <script src="/js/quixnav-init.js"></script>
+    <script src="/js/custom.min.js"></script>
+
+    <!-- Datatable -->
+    <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/js/plugins-init/datatables.init.js"></script>
+    <script src="/js/zoom-img.js"></script>
+    <script>
+      $(document).ready(function () {      
+        $(".delete").click(function () {
+          // $(this).hide();
+          if (confirm("Bạn có muốn xóa Ảnh"))
+            window.location.href =
+              window.location.origin + "/delete/" + this.value;
+          // alert(this.value)
+        });
+      });
+    </script>
+  </body>
+</html>

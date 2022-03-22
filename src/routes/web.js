@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/user");
+const userbvController = require("../controllers/userbv");
 const adminController = require("../controllers/admin");
 const doctorController = require("../controllers/doctor");
 const apiController = require("../controllers/api");
@@ -13,9 +14,24 @@ const isAdmin = require("../middleware/isAdmin");
 
 let routes = (app) => {
   // ===============================================
+  // ================= USER BENH VIEN ========================
+  // ===============================================
+  router.get("/userbv/timeline",userbvController.getTimeline)
+  router.get("/userbv/", userbvController.getHomeUserBV);
+  router.get("/userbv/form", isAdmin.isUser, userbvController.getForm);
+  router.post(
+    "/userbv/form",
+    isAdmin.isUser,
+    upload.array("file", 10),
+    userbvController.postForm
+  );
+  router.get("/userbv/delete/:id", isAdmin.isUser, userbvController.getUserDelete);
+  router.get("/userbv/table", isAdmin.isUser, userbvController.getTable);
+  router.get("/userbv/messenger", isAdmin.isUser, userbvController.getMessenger);
+  // ===============================================
   // ================= USER ========================
   // ===============================================
-  router.get("/timeline",userController.getTimeline)
+  
   router.get("/", isAdmin.isUser, userController.getHomeUser);
   router.get("/login", userController.getLogin);
   router.post("/login", upload.single("file"), userController.postLogin);

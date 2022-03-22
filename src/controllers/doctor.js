@@ -28,7 +28,6 @@ const doctorForm = (req, res) => {
 const doctorTable = async (req, res) => {
     const inforUser = await InforUser.findAll({
         where: {
-            username: null,
             createby: req.session.User.idbacsi
         },
     });

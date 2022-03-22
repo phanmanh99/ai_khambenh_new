@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const md5 = require("md5");
 
 const db = require("../models");
 
@@ -26,10 +27,12 @@ const uploadFiles = async (req, res) => {
     }
 
   const arrimage = []
+  const arraccount = []
   const arruser = []
   const arrkhambenh = []
   if (req.session.User){
-    arruser.push({hoten: req.body.hoten,
+    arruser.push({username: req.body.bhyt,
+      hoten: req.body.hoten,
       sdt: req.body.sdt,
       sobhyt: req.body.bhyt,
       createby: req.session.User.idbacsi});
@@ -39,6 +42,12 @@ const uploadFiles = async (req, res) => {
       idbenhnhan: inforUser[0].idbenhnhan
     });
     KhamBenh.bulkCreate(arrkhambenh)
+    arraccount.push({
+      username: req.body.bhyt,
+      password: md5("123456"),
+      role: 3
+    });
+    Account.bulkCreate(arraccount)
     for (const iterator of req.files) {
       // console.log(iterator.filename);
       arrimage.push(
