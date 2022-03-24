@@ -20,12 +20,14 @@ RUN cd Python-3.8.0 && \
 	make altinstall
 RUN python3.8 -m pip install --upgrade pip && \
 	pip3.8 install --no-cache tensorflow && \
-	pip3.8 install pillow \
-	pip3.8 install requests \
-	pip3.8 install bs4 \
-	pip3.8 install googletrans \
-	pip3.8 install json \
-	pip3.8 install nltk \
+	pip3.8 install pillow && \
+	pip3.8 install requests && \
+	pip3.8 install bs4 && \
+	pip3.8 install googletrans && \
+	pip3.8 install nltk && \
+	nltk.download('punkt') && \
+	nltk.download('wordnet') && \
+	nltk.download('omw-1.4')
 
 WORKDIR /khambenh-app
 COPY package.json .
