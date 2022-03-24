@@ -190,7 +190,7 @@ const table = async (req, res) => {
             idbenhnhan: req.session.User.idbenhnhan
         },
     });
-    
+ 
     const datas = [];
 
     for (const element of image) {

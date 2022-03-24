@@ -131,10 +131,17 @@ const doctorDelete = async (req, res) => {
     const image = await Image.findAll({
         where: { idbenhnhan: user[0].idbenhnhan }
     });
-    if (!image.length)
+    if (!image.length){
+        const dele = await InforUser.findAll({
+            where: { idbenhnhan: user[0].idbenhnhan },
+        });
+        await Account.destroy({
+            where: { username: dele[0].username },
+        });
         await InforUser.destroy({
             where: { idbenhnhan: user[0].idbenhnhan },
         });
+    }        
     return res.redirect("/doctor/table");
 };
 const doctorCheck = async (req, res) => {
@@ -250,9 +257,7 @@ const doctorUser = async (req, res) => {
         datas: data,
     });
 };
-const doctorSendMessenger = async (req, res) => {
-    console.log(req.session.User);
-    console.log(req.body.messenger);
+const doctorSendMessenger = async (req, res) => {    
     await Messengers.create({
         idbacsi: req.session.User.idbacsi,
         idbenhnhan: req.params.idbenhnhan,        

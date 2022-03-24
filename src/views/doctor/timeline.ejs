@@ -57,7 +57,7 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        <div class="timeline-container" id="timeline-1" style="background-image: url(/images/truongphan.jpg);">
+        <div class="timeline-container" id="timeline-1" style="background-image: url(/images/bg_timeline.jpg);">
             <div class="timeline-header" style="text-align: center;">
               <h2 class="timeline-header__title">Lịch sử khám bệnh</h2>
               <h3 class="timeline-header__subtitle">PHAN BOI CHAU</h3>
@@ -65,28 +65,28 @@
             <div class="timeline">
                 <% for(let key in datas) { %>
                     
-              <div class="timeline-item" data-text="Lời khuyên: <%= datas[key].comment_doctor %>">                  
+              <div class="timeline-item" data-text="Lời khuyên: <%= datas[key].comment_doctor %>">                 
                 <div class="timeline__content"><img class="timeline__img" src="/assets/uploads/<%= datas[key].nameimage %>"/>
-                  <h4 class="timeline__content-title" style="color: black;"><%= new Date(datas[key].createdAt).toLocaleDateString('en-GB') %></h4>
+                  <h6 class="timeline__content-title" style="color: #0B157E;"><br><%= new Date(datas[key].createdAt).toLocaleDateString('en-GB') %></h6>
                   <p class="timeline__content-desc"><b><u>Mức độ:</u></b> 
                     <%= datas[key].mucdo %>
                     <%if (datas[key].mucdo == 0){%>
-                        <div class="w3-border" style="width:2cm">
+                        <div class="w3-border" style="width:3cm">
                             <div class="w3-green" style="height:24px;width:100%"></div>
                         </div>                       
                         <%}%>
                     <%if (datas[key].mucdo == 1){%>
-                        <div class="w3-border" style="width:2cm">
+                        <div class="w3-border" style="width:3cm">
                             <div class="w3-yellow" style="height:24px;width:100%"></div>
                         </div>
                         <%}%>
                     <%if (datas[key].mucdo == 2){%>
-                        <div class="w3-border" style="width:2cm">
+                        <div class="w3-border" style="width:3cm">
                             <div class="w3-orange" style="height:24px;width:100%"></div>
                         </div>
                         <%}%>
                     <%if (datas[key].mucdo == 3){%>
-                        <div class="w3-border" style="width:2cm">
+                        <div class="w3-border" style="width:3cm">
                             <div class="w3-red" style="height:24px;width:100%"></div>
                         </div>
                         <%}%>

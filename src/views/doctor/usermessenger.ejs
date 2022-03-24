@@ -104,9 +104,7 @@
                       style="min-width: 845px"
                     >
                       <thead>
-                        <tr>
-                          <th>Tên bệnh nhân</th>
-                          <th>Bác sỹ</th>
+                        <tr>                          
                           <th>Tin nhắn</th>
                           <th>Tình trạng đọc</th>
                           <th>Ngày viết tin</th>
@@ -115,8 +113,6 @@
                       <tbody>
                         <% for(let key in datas) { %>
                         <tr>
-                          <td></td> <!--Tên bệnh nhân: lấy thông tin từ bảng inforuser where inforuser.idbenhnhan == image.idbenhnhan-->
-                          <td></td> <!--Tên Bác sĩ: lấy thông tin từ bảng inforuser where infordoctor.idbacsi == image.idbacsi-->
                           <td><%= datas[key].messengers %></td>
                           <td><%= datas[key].status == "1" ? "Đã xem" : "Chưa xem" %></td>
                           <td>
@@ -128,8 +124,6 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th>Tên bệnh nhân</th>
-                          <th>Bác sỹ</th>
                           <th>Tin nhắn</th>
                           <th>Tình trạng đọc</th>
                           <th>Ngày viết tin</th>
@@ -178,7 +172,7 @@
     <!-- Datatable -->
     <script src="/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="/js/plugins-init/datatables.init.js"></script>
-    <script>
+    <!-- <script>
       window.onload = () => {
         table.rows().every(function () {
           this.nodes().to$().removeClass("selected");
@@ -207,6 +201,6 @@
           this.nodes().to$().removeClass("hover");
         });
       };
-    </script>
+    </script> -->
   </body>
 </html>
